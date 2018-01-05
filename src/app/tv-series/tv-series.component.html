@@ -5,5 +5,5 @@
       <div class="post-title">{{currentPost.title}}</div>
     </div>
   </div>
-  <app-playbill-gallery *ngIf="posts" [posts]="posts"></app-playbill-gallery>
+  <app-playbill-gallery *ngIf="posts" [posts]="posts" (choosePost)="changeCurrentPost($event)"></app-playbill-gallery>
 </div>

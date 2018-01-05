@@ -26,11 +26,12 @@
 
       .post-title {
         position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 14px;
         color: #b0b0b0;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        text-align: center;
       }
     }
   }

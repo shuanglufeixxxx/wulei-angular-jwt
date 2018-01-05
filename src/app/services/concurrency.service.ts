@@ -28,6 +28,7 @@ export class ConcurrencyService {
           let value = pair[0] as T;
           let index = pair[1] as number;
           result[index] = value;
+          //console.log(result);
           return result;
         })
       );

@@ -20,7 +20,10 @@
     overflow: hidden;
 
     .playbill-container {
+      position: absolute;
       height: 100%;
+      transition-timing-function: ease;
+      transition-duration: 0.5s;
 
       .playbill-plus-title {
         width: 108px;
@@ -43,11 +46,12 @@
 
           .title {
             position: absolute;
-            left: 50%;
+            width: 100%;
             top: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateY(-50%);
             font-size: 14px;
             color: $primary-color;
+            text-align: center;
           }
         }
       }

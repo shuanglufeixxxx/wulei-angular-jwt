@@ -1,9 +1,9 @@
 <div class="playbill-gallery-area">
-  <div class="arrow-left" (click)="swipeLeft()">
+  <div class="arrow-left" (click)="clickLeft()">
     <i class="ion-ios-arrow-left"></i>
   </div>
-  <div class="showable">
-    <div class="playbill-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="18px">
+  <div class="showable" #showableView>
+    <div class="playbill-container" #playbillContainerView fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="18px" [style.left.px]="-styleLeft">
       <div class="playbill-plus-title" *ngFor="let post of posts, index as i" (click)="navigateTo(i)">
         <div class="playbill" *ngIf="playbills">
           <img src="{{baseURL + playbills[i].source}}">
@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="arrow-right" (click)="swipeRight()">
+  <div class="arrow-right" (click)="clickRight()">
     <i class="ion-ios-arrow-right"></i>
   </div>
 </div>

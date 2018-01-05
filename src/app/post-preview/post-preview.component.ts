@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { Picture } from '../shared/picture';
 import { PostPreview } from '../shared/PostPreview';
 import { PictureService } from '../services/picture.service';
@@ -10,7 +10,7 @@ import { ConcurrencyService } from '../services/concurrency.service';
   templateUrl: './post-preview.component.html',
   styleUrls: ['./post-preview.component.scss']
 })
-export class PostPreviewComponent implements OnInit {
+export class PostPreviewComponent implements OnInit, OnChanges {
 
   @Input() preview: PostPreview;
   
@@ -24,6 +24,14 @@ export class PostPreviewComponent implements OnInit {
     , @Inject('baseURL') private baseURL) { }
 
   ngOnInit() {
+    this.prepareContent();
+  }
+
+  ngOnChanges( _: SimpleChanges) {
+    this.prepareContent();
+  }
+
+  prepareContent() {
     this.concurrencyService.getMany(this.pictureService, this.preview.pictures)
       .subscribe(pictures => this.pictures = pictures);
     

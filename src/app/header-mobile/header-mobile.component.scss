@@ -1,6 +1,11 @@
+@import '../../theme';
+
 .header-mobile-area {
   width: 100%;
   height: 48px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: $primary-border-color;
 
   .nav-icon-container {
     position: absolute;
