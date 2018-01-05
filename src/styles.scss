@@ -1,0 +1,33 @@
+html {
+  font-family: 'lato', sans-serif;
+  font-size: 12px;
+}
+
+body {
+  margin: 0px;
+}
+
+div {
+  position: relative;
+}
+
+p {
+  position: relative;
+}
+
+span {
+  position: relative;
+}
+
+img {
+  position: relative;
+}
+
+a,
+a:hover,
+a:active,
+a:visited,
+a:link {
+  text-decoration: none;
+  color: inherit;
+}

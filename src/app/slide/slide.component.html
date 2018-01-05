@@ -1,0 +1,8 @@
+<div class="slide-area">
+  <div class="showable">
+    <app-post-preview *ngFor="let preview of previews, index as i" [preview]="preview" [@position]="positions[i]"></app-post-preview>
+  </div>
+  <div class="slide-indicator-container" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="24px">
+    <div class="slide-indicator" *ngFor="let _ of previews, index as i" [class.slideIndicatorActive]="i === currentIndex" (click)="moveTo(i)"></div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+app-menubar-mobile {
+  display: block;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+
+.plain-content {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+
+  app-header {
+    display: block;
+    position: relative;
+    width: 100vw;
+  }
+
+  app-header-mobile {
+    display: block;
+    position: relative;
+    width: 100vw;
+  }
+
+  app-footer {
+    display: block;
+    position: relative;
+    width: 100vw;
+  }
+}
+
+.noScrollable {
+  overflow: hidden;
+}
