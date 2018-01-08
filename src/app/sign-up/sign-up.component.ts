@@ -21,25 +21,25 @@ export class SignUpComponent implements OnInit {
 
   styleLeft: number = 0;
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
     @Inject('baseURL') private baseURL: string) { }
 
   ngOnInit() {
-    this.usernameGroup = this._formBuilder.group({
+    this.usernameGroup = this.formBuilder.group({
       usernameControl: ['', [ Validators.minLength(2), Validators.maxLength(10) ]]
     });
 
-    this.passwordGroup = this._formBuilder.group({
+    this.passwordGroup = this.formBuilder.group({
       passwordControl: ['', [ Validators.minLength(2), Validators.maxLength(10) ]]
     });
 
-    this.passwordConfirmGroup = this._formBuilder.group({
+    this.passwordConfirmGroup = this.formBuilder.group({
       passwordConfirmControl: ['', Validators.required]
     });
 
-    this.signUpGroup = this._formBuilder.group({
+    this.signUpGroup = this.formBuilder.group({
       usernameGroup: this.usernameGroup,
       passwordGroup: this.passwordGroup,
       passwordConfirmGroup: this.passwordConfirmGroup
@@ -72,12 +72,15 @@ export class SignUpComponent implements OnInit {
     if(this.signUpGroup.valid) {
       let userInfo = this.deepCopyUserInfo();
       this.userService.signUp(userInfo.username, userInfo.password).subscribe(
-        signUp => {
-          this.router.navigate( [{ outlets: { action: null } }] );
-        },
-        error => {
-          this.styleLeft = 0;
-          this.signUpGroup.reset();
+        result => {
+          console.log(result);
+          if(result) {
+            this.router.navigate( [{ outlets: { action: null } }] );
+          } else {
+            console.log("abc");
+            this.signUpGroup.reset();
+            this.styleLeft = -300;
+          }
         }
       );
     }
@@ -86,13 +89,17 @@ export class SignUpComponent implements OnInit {
   deepCopyUserInfo(): { username: string, password: string } {
     let value = this.signUpGroup.value;
     var user = {
-      username: value.username as string,
-      password: value.password as string
+      username: this.signUpGroup.get('usernameGroup.usernameControl').value as string,
+      password: this.signUpGroup.get('passwordGroup.passwordControl').value as string
     }
     return user;
   }
 
   close() {
     this.router.navigate( [{ outlets: { action: null } }] );
+  }
+
+  tryAgain() {
+    this.styleLeft = 0;
   }
 }

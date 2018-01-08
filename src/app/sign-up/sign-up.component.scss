@@ -56,7 +56,7 @@
       }
     }
     .steps {
-      width: 1200px;
+      width: 1600px;
       height: 154px;
       transition-duration: 0.4s;
       transition-timing-function: ease;
@@ -100,6 +100,19 @@
             margin-top: 24px;
             width: 376px;
           }
+        }
+      }
+      .tip-step {
+        @extend .step;
+        div {
+          font-family: Roboto,"Helvetica Neue", sans-serif;
+          font-size: 14px;
+          color: #ff0000;
+          text-align: center;
+        }
+        button {
+          margin-top: 24px;
+          width: 376px;
         }
       }
     }

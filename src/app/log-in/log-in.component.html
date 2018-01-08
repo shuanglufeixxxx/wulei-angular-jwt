@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="title">
-      <span>Log in</span>
+      <span>Sign in</span>
     </div>
     <div class="steps" fxLayout="row" fxLayoutAlign="space-around center" [style.left.%]="styleLeft">
       <div class="username-step">
@@ -32,6 +32,10 @@
             <button mat-button type="submit">Log In</button>
           </div>
         </form>
+      </div>
+      <div class="tip-step">
+        <div>Account name or password not matched.</div>
+        <button mat-button type="button" (click)="tryAgain()">Try again</button>
       </div>
     </div>
   </div>

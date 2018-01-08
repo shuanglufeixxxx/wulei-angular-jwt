@@ -20,51 +20,51 @@ export class LogInComponent implements OnInit {
   styleLeft: number = 0;
 
   constructor(private userService: UserService,
-    private _formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     @Inject('baseURL') private baseURL: string) { }
 
   ngOnInit() {
-    this.usernameGroup = this._formBuilder.group({
+    this.usernameGroup = this.formBuilder.group({
       usernameControl: ['', [ Validators.minLength(2), Validators.maxLength(10) ]]
     });
 
-    this.passwordGroup = this._formBuilder.group({
+    this.passwordGroup = this.formBuilder.group({
       passwordControl: ['', [ Validators.minLength(2), Validators.maxLength(10) ]]
     });
 
-    this.logInGroup = this._formBuilder.group(
+    this.logInGroup = this.formBuilder.group(
       {usernameGroup: this.usernameGroup, passwordGroup: this.passwordGroup});
-    
-    console.log(this.usernameGroup);
   }
 
   nextStep() {
     if(this.usernameGroup.valid) {
+      console.log(this.logInGroup);
       this.styleLeft = -100;
     }
   }
 
   logIn() {
+    console.log(this.logInGroup);
     if(this.logInGroup.valid) {
       let userInfo = this.deepCopyUserInfo();
       this.userService.logIn(userInfo.username, userInfo.password).subscribe(
-        logIn => {
-          this.router.navigate( [{ outlets: { action: null } }] );
-        },
-        error => {
-          this.styleLeft = 0;
-          this.logInGroup.reset();
+        result => {
+          if(result && result.length > 0) {
+            this.router.navigate( [{ outlets: { action: null } }] );
+          } else {
+            this.logInGroup.reset();
+            this.styleLeft = -200;
+          }
         }
       );
     }
   }
 
   deepCopyUserInfo(): { username: string, password: string } {
-    let value = this.logInGroup.value;
     var user = {
-      username: value.username as string,
-      password: value.password as string
+      username: this.logInGroup.get('usernameGroup.usernameControl').value as string,
+      password: this.logInGroup.get('passwordGroup.passwordControl').value as string
     }
     return user;
   }
@@ -75,5 +75,9 @@ export class LogInComponent implements OnInit {
 
   navigateToSignUp() {
     this.router.navigate( [{ outlets: { action: 'sign-up' } }] );
+  }
+
+  tryAgain() {
+    this.styleLeft = 0;
   }
 }
