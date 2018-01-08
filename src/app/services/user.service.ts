@@ -12,4 +12,14 @@ export class UserService implements Gettable<User> {
   get(id: string): Observable<User> {
     return this.restangular.one("user", id).get();
   }
+
+  logIn(username: string, password: string): Observable<boolean> {
+    console.log("log in");
+    return this.restangular.customGET("user", {username: username, password: password});
+  }
+
+  signUp(username: string, password: string): Observable<boolean> {
+    console.log("sign up");
+    return this.restangular.customPOST({username: username, password: password}, "user");
+  }
 }

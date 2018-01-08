@@ -33,7 +33,7 @@ export class ActivityComponent implements OnInit {
       }
       
       this.conccurencyService.getMany( this.postPreviewService, ids )
-        .subscribe(previews => this.activityTopPostPreviews = previews );
+        .subscribe( previews => this.activityTopPostPreviews = previews );
     });
   }
 

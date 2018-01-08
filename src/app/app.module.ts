@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatStepperModule, MatFormFieldModule, MatDialogModule, MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RestangularModule, Restangular } from 'ngx-restangular';
 
@@ -24,6 +26,8 @@ import { RestangularConfigFactory } from './shared/RestangularConfigFactory';
 import { baseURL } from './shared/baseURL';
 import { RootRoutingModule } from './root/root-routing.module';
 import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 
 @NgModule({
@@ -43,14 +47,25 @@ import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
     SlideComponent,
     PlaybillGalleryComponent,
     MenubarItemDirective,
-    FooterMobileComponent
+    FooterMobileComponent,
+    SignUpComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     RestangularModule.forRoot(RestangularConfigFactory),
     RootRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule
+  ],
+  entryComponents: [
+    LogInComponent
   ],
   providers: [
     { provide: 'baseURL', useValue: baseURL }

@@ -1,3 +1,5 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 html {
   font-family: 'lato', sans-serif;
   font-size: 12px;
@@ -30,4 +32,12 @@ a:visited,
 a:link {
   text-decoration: none;
   color: inherit;
+}
+
+.log-in-dialog {
+  .mat-dialog-container {
+    padding: 0px;
+    width: 400px;
+    height: 400px;
+  }
 }

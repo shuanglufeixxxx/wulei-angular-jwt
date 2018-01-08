@@ -1,0 +1,38 @@
+<div class="overlay">
+  <div class="showable">
+    <div class="picture-show">
+      <img src="{{baseURL + 'images/pexels-photo-530158.jpeg'}}">
+      <div (click)="close()">
+        <i class="ion-ios-close-empty"></i>
+      </div>
+    </div>
+    <div class="title">
+      <span>Log in</span>
+    </div>
+    <div class="steps" fxLayout="row" fxLayoutAlign="space-around center" [style.left.%]="styleLeft">
+      <div class="username-step">
+        <form [formGroup]="usernameGroup" (ngSubmit)="nextStep()" novalidate>
+          <mat-form-field>
+            <input matInput placeholder="Type account name" formControlName="usernameControl" maxlength="10" required>
+            <mat-hint>2 to 10 charactors is required</mat-hint>
+          </mat-form-field>
+          <div>
+            <a (click)="navigateToSignUp()">No account? Create a new one.</a>
+          </div>
+          <button mat-button type="submit">Next</button>
+        </form>
+      </div>
+      <div class="password-step">
+        <form [formGroup]="passwordGroup" (ngSubmit)="logIn()" novalidate>
+          <mat-form-field>
+            <input matInput placeholder="Enter password" formControlName="passwordControl" maxlength="10" required>
+            <mat-hint>2 to 10 charactors is required</mat-hint>
+          </mat-form-field>
+          <div>
+            <button mat-button type="submit">Log In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

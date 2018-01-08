@@ -1,0 +1,46 @@
+<div class="overlay">
+  <div class="showable">
+    <div class="picture-show">
+      <img src="{{baseURL + 'images/pexels-photo-530158.jpeg'}}">
+      <div (click)="close()">
+        <i class="ion-ios-close-empty"></i>
+      </div>
+    </div>
+    <div class="title">
+      <span>Sign up</span>
+    </div>
+    <div class="steps" fxLayout="row" fxLayoutAlign="space-around center" [style.left.%]="styleLeft">
+      <div class="username-step">
+        <form [formGroup]="usernameGroup" (ngSubmit)="nextStep('username')" novalidate>
+          <mat-form-field>
+            <input matInput placeholder="Type acount name" formControlName="usernameControl" maxlength="10" required>
+            <mat-hint>2 to 10 charactors is required</mat-hint>
+          </mat-form-field>
+          <button mat-button type="submit">Next</button>
+        </form>
+      </div>
+      <div class="password-step">
+        <form [formGroup]="passwordGroup" (ngSubmit)="nextStep('password')" novalidate>
+          <mat-form-field>
+            <input matInput placeholder="Enter password" formControlName="passwordControl" maxlength="10" required>
+            <mat-hint>2 to 10 charactors is required</mat-hint>
+          </mat-form-field>
+          <div>
+            <button mat-button type="submit">Next</button>
+          </div>
+        </form>
+      </div>
+      <div class="password-confirm-step">
+        <form [formGroup]="passwordConfirmGroup" (ngSubmit)="signUp()" novalidate>
+          <mat-form-field>
+            <input matInput placeholder="Enter your password again" formControlName="passwordConfirmControl" maxlength="10" required>
+            <mat-hint>2 to 10 charactors is required</mat-hint>
+          </mat-form-field>
+          <div>
+            <button mat-button type="submit">Sign Up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

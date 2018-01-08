@@ -28,7 +28,7 @@
     top: 67px;
     bottom: 0px;
     overflow: scroll;
-    background-color: rgba($color: #ffffff, $alpha: 0.8);
+    background-color: rgba($color: #ffffff, $alpha: 0.96);
 
     .nav-row {
       width: 100%;
@@ -36,6 +36,7 @@
       border-bottom-style: solid;
       border-bottom-width: 1px;
       border-bottom-color: $primary-border-color;
+      outline: none;
 
       .nav-text {
         top: 24px;

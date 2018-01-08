@@ -50,6 +50,6 @@ export class TvSeriesComponent implements OnInit {
   }
 
   changeCurrentPost(id: string) {
-    this.router.navigate(['/tv-series', { post: id }]);
+    this.router.navigate(['./', { post: id }]);
   }
 }
