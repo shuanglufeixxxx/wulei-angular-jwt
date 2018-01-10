@@ -4,18 +4,18 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-log-in',
+  selector: 'app-sign-in',
   providers: [ UserService ],
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss']
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
 })
-export class LogInComponent implements OnInit {
+export class SignInComponent implements OnInit {
 
   usernameGroup: FormGroup;
 
   passwordGroup: FormGroup;
 
-  logInGroup: FormGroup;
+  signInGroup: FormGroup;
 
   styleLeft: number = 0;
 
@@ -33,27 +33,25 @@ export class LogInComponent implements OnInit {
       passwordControl: ['', [ Validators.minLength(2), Validators.maxLength(10) ]]
     });
 
-    this.logInGroup = this.formBuilder.group(
+    this.signInGroup = this.formBuilder.group(
       {usernameGroup: this.usernameGroup, passwordGroup: this.passwordGroup});
   }
 
   nextStep() {
     if(this.usernameGroup.valid) {
-      console.log(this.logInGroup);
       this.styleLeft = -100;
     }
   }
 
-  logIn() {
-    console.log(this.logInGroup);
-    if(this.logInGroup.valid) {
+  signIn() {
+    if(this.signInGroup.valid) {
       let userInfo = this.deepCopyUserInfo();
-      this.userService.logIn(userInfo.username, userInfo.password).subscribe(
+      this.userService.signIn(userInfo.username, userInfo.password).subscribe(
         result => {
           if(result && result.length > 0) {
             this.router.navigate( [{ outlets: { action: null } }] );
           } else {
-            this.logInGroup.reset();
+            this.signInGroup.reset();
             this.styleLeft = -200;
           }
         }
@@ -63,8 +61,8 @@ export class LogInComponent implements OnInit {
 
   deepCopyUserInfo(): { username: string, password: string } {
     var user = {
-      username: this.logInGroup.get('usernameGroup.usernameControl').value as string,
-      password: this.logInGroup.get('passwordGroup.passwordControl').value as string
+      username: this.signInGroup.get('usernameGroup.usernameControl').value as string,
+      password: this.signInGroup.get('passwordGroup.passwordControl').value as string
     }
     return user;
   }

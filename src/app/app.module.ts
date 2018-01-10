@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatStepperModule, MatFormFieldModule, MatDialogModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RestangularModule, Restangular } from 'ngx-restangular';
 
@@ -22,12 +22,12 @@ import { PostPreviewComponent } from './post-preview/post-preview.component';
 import { SlideComponent } from './slide/slide.component';
 import { PlaybillGalleryComponent } from './playbill-gallery/playbill-gallery.component';
 import { MenubarItemDirective } from './header/menubar-item.directive';
-import { RestangularConfigFactory } from './shared/RestangularConfigFactory';
+import { restangularConfigFactory } from './shared/restangularConfigFactory';
 import { baseURL } from './shared/baseURL';
-import { RootRoutingModule } from './root/root-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { LogInComponent } from './log-in/log-in.component';
 
 
 @NgModule({
@@ -48,24 +48,21 @@ import { LogInComponent } from './log-in/log-in.component';
     PlaybillGalleryComponent,
     MenubarItemDirective,
     FooterMobileComponent,
-    SignUpComponent,
-    LogInComponent
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    RestangularModule.forRoot(RestangularConfigFactory),
-    RootRoutingModule,
+    RestangularModule.forRoot(restangularConfigFactory),
+    AppRoutingModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatStepperModule,
     MatFormFieldModule,
-    MatDialogModule,
     MatInputModule
   ],
   entryComponents: [
-    LogInComponent
   ],
   providers: [
     { provide: 'baseURL', useValue: baseURL }

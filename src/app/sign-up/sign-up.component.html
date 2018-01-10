@@ -13,7 +13,7 @@
       <div class="username-step">
         <form [formGroup]="usernameGroup" (ngSubmit)="nextStep('username')" novalidate>
           <mat-form-field>
-            <input matInput placeholder="Type acount name" formControlName="usernameControl" maxlength="10" required>
+            <input matInput placeholder="{{usernamePlaceholder}}" formControlName="usernameControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
           </mat-form-field>
           <button mat-button type="submit">Next</button>
@@ -22,7 +22,7 @@
       <div class="password-step">
         <form [formGroup]="passwordGroup" (ngSubmit)="nextStep('password')" novalidate>
           <mat-form-field>
-            <input matInput placeholder="Enter password" formControlName="passwordControl" maxlength="10" required>
+            <input matInput placeholder="{{passwordPlaceholder}}" formControlName="passwordControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
           </mat-form-field>
           <div>
@@ -33,11 +33,11 @@
       <div class="password-confirm-step">
         <form [formGroup]="passwordConfirmGroup" (ngSubmit)="signUp()" novalidate>
           <mat-form-field>
-            <input matInput placeholder="Enter your password again" formControlName="passwordConfirmControl" maxlength="10" required>
+            <input matInput placeholder="{{passwordConfirmPlaceholder}}" formControlName="passwordConfirmControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
           </mat-form-field>
           <div>
-            <button mat-button type="submit">Sign Up</button>
+            <button mat-button color="accent" type="submit">Sign Up</button>
           </div>
         </form>
       </div>

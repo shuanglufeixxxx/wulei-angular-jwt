@@ -23,13 +23,13 @@
         </form>
       </div>
       <div class="password-step">
-        <form [formGroup]="passwordGroup" (ngSubmit)="logIn()" novalidate>
+        <form [formGroup]="passwordGroup" (ngSubmit)="signIn()" novalidate>
           <mat-form-field>
             <input matInput placeholder="Enter password" formControlName="passwordControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
           </mat-form-field>
           <div>
-            <button mat-button type="submit">Log In</button>
+            <button mat-button color="primary" type="submit">Sign In</button>
           </div>
         </form>
       </div>

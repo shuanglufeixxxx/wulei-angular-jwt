@@ -21,6 +21,10 @@ export class SignUpComponent implements OnInit {
 
   styleLeft: number = 0;
 
+  usernamePlaceholder = "Type a name";
+  passwordPlaceholder = "Enter password";
+  passwordConfirmPlaceholder = "Enter your password again";
+
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
@@ -43,13 +47,12 @@ export class SignUpComponent implements OnInit {
       usernameGroup: this.usernameGroup,
       passwordGroup: this.passwordGroup,
       passwordConfirmGroup: this.passwordConfirmGroup
-    }, passwordMatchValidator);
+    }, {validator: passwordMatchValidator});
     
     function passwordMatchValidator(g: FormGroup) {
-      console.log("hello");
-      return g.get('passwordGroup').get('passwordControl').value
-        === g.get('passwordConfirmGroup').get('passwordConfirmControl').value
-        ? null : {'match': false};
+      return g.get('passwordGroup.passwordControl').value
+        === g.get('passwordConfirmGroup.passwordConfirmControl').value
+        ? null : {'notmatch': true};
     }
   }
 
@@ -73,16 +76,17 @@ export class SignUpComponent implements OnInit {
       let userInfo = this.deepCopyUserInfo();
       this.userService.signUp(userInfo.username, userInfo.password).subscribe(
         result => {
-          console.log(result);
           if(result) {
             this.router.navigate( [{ outlets: { action: null } }] );
           } else {
-            console.log("abc");
             this.signUpGroup.reset();
             this.styleLeft = -300;
           }
         }
       );
+    } else if (this.signUpGroup.hasError('notmatch')) {
+      this.passwordConfirmGroup.reset();
+      this.passwordConfirmPlaceholder = "Password not match. Enter your password again";
     }
   }
 

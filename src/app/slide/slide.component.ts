@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { swipeLeftSwipeRight } from '../animation/swipe-left-swipe-right';
 import { PostPreview } from '../shared/PostPreview';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -12,20 +12,7 @@ import 'rxjs/add/operator/map';
   selector: 'app-slide',
   templateUrl: './slide.component.html',
   styleUrls: ['./slide.component.scss'],
-  animations: [
-    trigger('position', [
-      state('left', style({
-        transform: 'translateX(-100%)'
-      })),
-      state('center', style({
-        transform: 'translateX(0%)'
-      })),
-      state('right', style({
-        transform: 'translateX(100%)'
-      })),
-      transition('left<=>center, right<=>center', animate('500ms ease-in-out'))
-    ])
-  ]
+  animations: [ swipeLeftSwipeRight() ]
 })
 export class SlideComponent implements OnInit, OnDestroy {
 

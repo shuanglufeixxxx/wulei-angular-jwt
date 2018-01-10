@@ -27,12 +27,11 @@
       }
       div {
         position: absolute;
-        top: 4px;
-        right: 4px;
+        top: 0px;
+        right: 0px;
         width: 36px;
         height: 36px;
-        border-radius: 100%;
-        background-color: $primary-button-color;
+        background-color: rgba($color: #ffffff, $alpha: 0.9);
         outline: none;
 
         i {
@@ -107,7 +106,7 @@
         div {
           font-family: Roboto,"Helvetica Neue", sans-serif;
           font-size: 14px;
-          color: #ff0000;
+          color: $primary-warn-color;
           text-align: center;
         }
         button {
