@@ -28,6 +28,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { PostComponent } from './post/post.component';
+import { ShowComponent } from './slide/show/show.component';
+import { ShowAreaDirective } from './slide/show/show-area.directive';
 
 
 @NgModule({
@@ -49,7 +52,10 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MenubarItemDirective,
     FooterMobileComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    PostComponent,
+    ShowComponent,
+    ShowAreaDirective
   ],
   imports: [
     BrowserModule,
@@ -63,6 +69,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatInputModule
   ],
   entryComponents: [
+    PostPreviewComponent
   ],
   providers: [
     { provide: 'baseURL', useValue: baseURL }

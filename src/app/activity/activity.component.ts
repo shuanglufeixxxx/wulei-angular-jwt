@@ -6,6 +6,8 @@ import { ActivityTopPost } from '../shared/activityTopPost';
 import { Observable } from 'rxjs/Observable';
 import { ConcurrencyService } from '../services/concurrency.service';
 import { isMobileDevice } from '../shared/isMobileDevice';
+import { ShowElement } from '../slide/show/show-element';
+import { PostPreviewComponent } from '../post-preview/post-preview.component';
 
 @Component({
   selector: 'app-activity',
@@ -16,6 +18,8 @@ import { isMobileDevice } from '../shared/isMobileDevice';
 export class ActivityComponent implements OnInit {
 
   activityTopPostPreviews: PostPreview[];
+
+  showElements: ShowElement[];
 
   isMobileDevice: boolean;
 
@@ -33,7 +37,14 @@ export class ActivityComponent implements OnInit {
       }
       
       this.conccurencyService.getMany( this.postPreviewService, ids )
-        .subscribe( previews => this.activityTopPostPreviews = previews );
+        .subscribe( previews => {
+          this.activityTopPostPreviews = previews;
+          var elements: ShowElement[] = [];
+          for(let el of this.activityTopPostPreviews) {
+            elements.push( new ShowElement(PostPreviewComponent, el) );
+          }
+          this.showElements = elements;
+        });
     });
   }
 

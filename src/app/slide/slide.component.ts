@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { swipeLeftSwipeRight } from '../animation/swipe-left-swipe-right';
-import { PostPreview } from '../shared/PostPreview';
+import { ShowElement } from './show/show-element';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { async } from 'rxjs/scheduler/async';
@@ -16,7 +16,8 @@ import 'rxjs/add/operator/map';
 })
 export class SlideComponent implements OnInit, OnDestroy {
 
-  @Input() previews: PostPreview[];
+  @Input() showElements: ShowElement[];
+  @Input() showIndicator: boolean = false;
 
   currentIndex: number = 0;
 
@@ -30,13 +31,13 @@ export class SlideComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if(this.previews.length === 0) {
+    if(this.showElements.length === 0) {
       this.positions = [];
       return;
     }
 
     var positions: string[] = [];
-    for(let _ of this.previews) {
+    for(let _ of this.showElements) {
       positions.push('right');
     }
     positions[0] = 'center';
@@ -81,7 +82,7 @@ export class SlideComponent implements OnInit, OnDestroy {
     return Observable.interval(8000).filter( (_, _2) => {
       return Date.now() - this.lastClickedTime >= 8000;
     }).subscribe( _ => {
-      this.swipeTo( (this.currentIndex + 1) % this.previews.length, 'left');
+      this.swipeTo( (this.currentIndex + 1) % this.showElements.length, 'left');
     });
   }
 
