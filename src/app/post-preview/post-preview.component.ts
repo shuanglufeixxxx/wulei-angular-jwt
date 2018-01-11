@@ -3,8 +3,6 @@ import { Picture } from '../shared/picture';
 import { PostPreview } from '../shared/PostPreview';
 import { PictureService } from '../services/picture.service';
 import { ConcurrencyService } from '../services/concurrency.service';
-import { ShowElementData } from '../slide/show/show-element-data';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-post-preview',
@@ -12,13 +10,9 @@ import { Subject } from 'rxjs';
   templateUrl: './post-preview.component.html',
   styleUrls: ['./post-preview.component.scss']
 })
-export class PostPreviewComponent implements OnInit, OnChanges, ShowElementData {
+export class PostPreviewComponent implements OnInit, OnChanges {
 
   @Input() preview: PostPreview;
-
-  _preview: PostPreview;
-
-  @Input() data: any;
   
   pictures: Picture[];
 
@@ -34,21 +28,14 @@ export class PostPreviewComponent implements OnInit, OnChanges, ShowElementData 
   }
 
   ngOnChanges( _: SimpleChanges) {
-    console.log("d");
     this.prepareContent();
   }
 
   prepareContent() {
-    if(this.data) {
-      this._preview = this.data as PostPreview;
-    } else {
-      this._preview = this.preview;
-    }
-    
-    var subscription = this.concurrencyService.getMany(this.pictureService, this._preview.pictures)
+    this.concurrencyService.getMany(this.pictureService, this.preview.pictures)
       .subscribe(pictures => this.pictures = pictures);
     
-    switch(this._preview.style) {
+    switch(this.preview.style) {
       case 'one':
       this.onePictureWidth = "100";
       this.onePictureHeight = "100";

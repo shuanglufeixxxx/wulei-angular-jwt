@@ -7,16 +7,11 @@
     height: 100%;
     overflow: hidden;
 
-    .show-container {
+    .slide-show {
       display: block;
       position: absolute;
       width: 100%;
       height: 100%;
-
-      show {
-        display: block;
-        position: absolute;
-      }
     }
   }
 
@@ -34,6 +29,20 @@
       border-color: #ffffff;
       border-radius: 100%;
     }
+  }
+
+  .previous {
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .next {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 

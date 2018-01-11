@@ -29,8 +29,9 @@ import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PostComponent } from './post/post.component';
-import { ShowComponent } from './slide/show/show.component';
-import { ShowAreaDirective } from './slide/show/show-area.directive';
+import { SlideShowComponent } from './slide/slide-show/slide-show.component';
+import { SlidePreviousDirective } from './slide/slide-previous.directive';
+import { SlideNextDirective } from './slide/slide-next.directive';
 
 
 @NgModule({
@@ -54,8 +55,9 @@ import { ShowAreaDirective } from './slide/show/show-area.directive';
     SignInComponent,
     SignUpComponent,
     PostComponent,
-    ShowComponent,
-    ShowAreaDirective
+    SlideShowComponent,
+    SlidePreviousDirective,
+    SlideNextDirective
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,6 @@ import { ShowAreaDirective } from './slide/show/show-area.directive';
     MatInputModule
   ],
   entryComponents: [
-    PostPreviewComponent
   ],
   providers: [
     { provide: 'baseURL', useValue: baseURL }

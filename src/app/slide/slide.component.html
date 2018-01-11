@@ -1,10 +1,16 @@
 <div class="slide-area">
   <div class="showable">
-    <div class="show-container" *ngFor="let showElement of showElements, index as i" [@position]="positions[i]">
-      <app-show [showElement]="showElement"></app-show>
+    <div class="slide-show" *ngFor="let slideShow of slideShows, index as i" [@position]="positions[i]">
+      <ng-container [ngTemplateOutlet]="slideShow.content"></ng-container>
     </div>
   </div>
   <div class="slide-indicator-container" *ngIf="showIndicator" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="24px">
-    <div class="slide-indicator" *ngFor="let _ of showElements, index as i" [class.slideIndicatorActive]="i === currentIndex" (click)="moveTo(i)"></div>
+    <div class="slide-indicator" *ngFor="let _ of slideShows, index as i" [class.slideIndicatorActive]="i === currentIndex" (click)="moveTo(i)"></div>
+  </div>
+  <div class="previous" (click)="swipeTo(currentIndex - 1)">
+    <ng-content select="[slide-previous]"></ng-content>
+  </div>
+  <div class="next" (click)="swipeTo(currentIndex + 1)">
+    <ng-content select="[slide-next]"></ng-content>
   </div>
 </div>

@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, AfterContentInit, OnDestroy, Input, ContentChildren, QueryList} from '@angular/core';
 import { swipeLeftSwipeRight } from '../animation/swipe-left-swipe-right';
-import { ShowElement } from './show/show-element';
+import { PostPreview } from '../shared/PostPreview';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import { SlideShowComponent } from './slide-show/slide-show.component';
 
 @Component({
   selector: 'app-slide',
@@ -14,10 +15,10 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./slide.component.scss'],
   animations: [ swipeLeftSwipeRight() ]
 })
-export class SlideComponent implements OnInit, OnDestroy {
+export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
 
-  @Input() showElements: ShowElement[];
   @Input() showIndicator: boolean = false;
+  @ContentChildren(SlideShowComponent) slideShows: QueryList<SlideShowComponent>;
 
   currentIndex: number = 0;
 
@@ -31,13 +32,17 @@ export class SlideComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if(this.showElements.length === 0) {
+  }
+
+  ngAfterContentInit() {
+    if(this.slideShows.length === 0) {
       this.positions = [];
       return;
     }
 
     var positions: string[] = [];
-    for(let _ of this.showElements) {
+    let length = this.slideShows.length;
+    for(var i = 0; i < length; i++) {
       positions.push('right');
     }
     positions[0] = 'center';
@@ -55,6 +60,8 @@ export class SlideComponent implements OnInit, OnDestroy {
 
   swipeTo(index: number, forceDirection?: string) {
     if(index === this.currentIndex) return;
+
+    index = index % this.slideShows.length;
 
     if(forceDirection === 'left' || index > this.currentIndex) {
       this.positions[index] = 'right';
@@ -82,7 +89,7 @@ export class SlideComponent implements OnInit, OnDestroy {
     return Observable.interval(8000).filter( (_, _2) => {
       return Date.now() - this.lastClickedTime >= 8000;
     }).subscribe( _ => {
-      this.swipeTo( (this.currentIndex + 1) % this.showElements.length, 'left');
+      this.swipeTo( (this.currentIndex + 1) % this.slideShows.length, 'left');
     });
   }
 
