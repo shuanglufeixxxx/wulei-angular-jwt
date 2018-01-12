@@ -28,7 +28,7 @@ export class PlaybillGalleryComponent implements OnInit, AfterViewChecked {
 
   constructor(private concurrencyService: ConcurrencyService
     , private pictureService: PictureService
-    , @Inject('baseURL') private baseURL) { }
+    , @Inject('baseURL') private baseURL: string) { }
 
   ngOnInit() {
     var ids: string[] = [];

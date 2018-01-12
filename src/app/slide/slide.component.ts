@@ -18,6 +18,8 @@ import { SlideShowComponent } from './slide-show/slide-show.component';
 export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
 
   @Input() showIndicator: boolean = false;
+  @Input() autoPlay: boolean = false;
+  
   @ContentChildren(SlideShowComponent) slideShows: QueryList<SlideShowComponent>;
 
   currentIndex: number = 0;
@@ -51,19 +53,29 @@ export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
     
     this.lastClickedTime = Date.now();
 
-    this.autoSwipeSubscription = this.autoSwipe();
+    if(this.autoPlay) {
+      this.autoSwipeSubscription = this.autoSwipe();
+    }
   }
 
   ngOnDestroy() {
-    this.autoSwipeSubscription.unsubscribe();
+    if(this.autoSwipeSubscription) {
+      this.autoSwipeSubscription.unsubscribe();
+    }
   }
 
   swipeTo(index: number, forceDirection?: string) {
-    if(index === this.currentIndex) return;
+    if(index === this.currentIndex || index < 0 || index >= this.positions.length) return;
 
-    index = index % this.slideShows.length;
+    var direction: string = '';
 
-    if(forceDirection === 'left' || index > this.currentIndex) {
+    if(forceDirection) {
+      direction = forceDirection;
+    } else {
+      direction = index > this.currentIndex ? 'left' : 'right';
+    }
+
+    if(direction === 'left') {
       this.positions[index] = 'right';
 
       Observable.of(null, async).map( value => {
@@ -73,7 +85,7 @@ export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
         return value;
       }).subscribe();
     }
-    else if(forceDirection === 'right' || index < this.currentIndex) {
+    else if(direction === 'right') {
       this.positions[index] = 'left';
 
       Observable.of(null, async).map( value => {
@@ -93,8 +105,8 @@ export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
     });
   }
 
-  moveTo(index: number) {
+  moveTo(index: number, forceDirection?: string) {
     this.lastClickedTime = Date.now();
-    this.swipeTo(index);
+    this.swipeTo(index, forceDirection);
   }
 }

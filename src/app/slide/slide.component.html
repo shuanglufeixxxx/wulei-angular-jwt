@@ -7,10 +7,10 @@
   <div class="slide-indicator-container" *ngIf="showIndicator" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div class="slide-indicator" *ngFor="let _ of slideShows, index as i" [class.slideIndicatorActive]="i === currentIndex" (click)="moveTo(i)"></div>
   </div>
-  <div class="previous" (click)="swipeTo(currentIndex - 1)">
+  <div class="previous" (click)="moveTo( (currentIndex + slideShows.length - 1) % slideShows.length, 'right' )">
     <ng-content select="[slide-previous]"></ng-content>
   </div>
-  <div class="next" (click)="swipeTo(currentIndex + 1)">
+  <div class="next" (click)="moveTo( (currentIndex + 1) % slideShows.length, 'left' )">
     <ng-content select="[slide-next]"></ng-content>
   </div>
 </div>

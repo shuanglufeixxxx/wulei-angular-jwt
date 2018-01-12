@@ -4,7 +4,7 @@ import { Post } from '../shared/Post';
 import { PostPreview } from '../shared/PostPreview';
 import { PostService } from '../services/post.service';
 import { PostPreviewService } from '../services/post-preview.service';
-import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-tv-series',
@@ -27,10 +27,10 @@ export class TvSeriesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.postService.getList("tv-series").subscribe(posts => {
+    this.postService.getList("tv-series").switchMap(posts => {
       this.posts = posts;
 
-      this.route.paramMap.subscribe(params => {
+      return this.route.paramMap.switchMap(params => {
         var currentPost = this.posts[0];
         
         var id: string = params.get('post');
@@ -43,10 +43,9 @@ export class TvSeriesComponent implements OnInit {
 
         this.currentPost = currentPost;
         
-        this.postPreviewService.get(this.currentPost.id)
-          .subscribe( preview => this.currentPreview = preview );
+        return this.postPreviewService.get(this.currentPost.id);
       });
-    });
+    }).subscribe( preview => this.currentPreview = preview );
   }
 
   changeCurrentPost(id: string) {

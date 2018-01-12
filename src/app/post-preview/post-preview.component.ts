@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Inject, OnChanges, SimpleChanges } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Picture } from '../shared/picture';
 import { PostPreview } from '../shared/PostPreview';
 import { PictureService } from '../services/picture.service';
@@ -21,7 +22,9 @@ export class PostPreviewComponent implements OnInit, OnChanges {
 
   constructor(private pictureService: PictureService
     , private concurrencyService: ConcurrencyService
-    , @Inject('baseURL') private baseURL) { }
+    , @Inject('baseURL') private baseURL: string
+    , private router: Router
+    , private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.prepareContent();
@@ -59,4 +62,7 @@ export class PostPreviewComponent implements OnInit, OnChanges {
     }
   }
 
+  navigateToPost() {
+    this.router.navigate(['post', this.preview.id]);
+  }
 }

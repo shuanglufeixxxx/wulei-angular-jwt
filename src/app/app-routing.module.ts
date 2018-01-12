@@ -8,6 +8,7 @@ import { AdvertisementComponent } from './advertisement/advertisement.component'
 import { DailyLifeComponent } from './daily-life/daily-life.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { PostComponent } from './post/post.component';
 
 const routes: Routes = [
   { path: 'activity', component: ActivityComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'daily-life', component: DailyLifeComponent },
   { path: '', redirectTo: 'activity', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent, outlet: 'action'},
-  { path: 'sign-up', component: SignUpComponent, outlet: 'action'}
+  { path: 'sign-up', component: SignUpComponent, outlet: 'action'},
+  { path: 'post/:id', component: PostComponent }
 ];
 
 @NgModule({

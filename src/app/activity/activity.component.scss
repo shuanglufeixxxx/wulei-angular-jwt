@@ -6,22 +6,3 @@ app-slide {
   width: 100vw;
   height: 50vw;
 }
-
-.previous {
-  width: 36px;
-  height: 72px;
-  background-color: rgba($color: #ffffff, $alpha: 0.2);
-}
-
-i {
-  display: block;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 22px;
-}
-
-.next {
-  @extend .previous;
-}

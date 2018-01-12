@@ -1,11 +1,5 @@
-<app-slide *ngIf="activityTopPostPreviews" [showIndicator]="true" [style.height.vw]="isMobileDevice ? 100 : 47.6">
+<app-slide *ngIf="activityTopPostPreviews" [showIndicator]="true" [autoPlay]="true" [style.height.vw]="isMobileDevice ? 100 : 47.6">
   <app-slide-show *ngFor="let preview of activityTopPostPreviews">
     <app-post-preview [preview]="preview"></app-post-preview>
   </app-slide-show>
-  <div class="previous" slide-previous>
-    <i class="ion-ios-arrow-left"></i>
-  </div>
-  <div class="next" slide-next>
-    <i class="ion-ios-arrow-right"></i>
-  </div>
 </app-slide>
