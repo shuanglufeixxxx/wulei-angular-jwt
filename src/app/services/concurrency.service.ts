@@ -6,8 +6,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/pairwise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/last';
+import 'rxjs/add/operator/reduce';
 import { Gettable } from './gettable';
 
 @Injectable()
@@ -20,19 +19,18 @@ export class ConcurrencyService {
       return Observable.empty();
     }
     
-    var mergedObservable: Observable<T[]> = Observable.empty();
-    var result: T[] = new Array<T>(ids.length);
+    var mergedObservable: Observable<any[]> = Observable.empty();
     for(var i = 0; i < ids.length; i++) {
       mergedObservable = mergedObservable.merge(
-        gettable.get( ids[i] ).concat( Observable.of(i) ).pairwise().map( pair => {
-          let value = pair[0] as T;
-          let index = pair[1] as number;
-          result[index] = value;
-          //console.log(result);
-          return result;
-        })
+        gettable.get( ids[i] ).concat( Observable.of(i) ).pairwise()
       );
     }
-    return mergedObservable.last();
+
+    return mergedObservable.reduce( (accumulator, pair) => {
+      let value = pair[0] as T;
+      let index = pair[1] as number;
+      accumulator[index] = value;
+      return accumulator;
+    }, new Array<T>(ids.length));
   }
 }

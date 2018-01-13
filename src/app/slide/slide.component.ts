@@ -4,10 +4,10 @@ import { PostPreview } from '../shared/PostPreview';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { async } from 'rxjs/scheduler/async';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
 import { SlideShowComponent } from './slide-show/slide-show.component';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/interval';
 
 @Component({
   selector: 'app-slide',
@@ -28,7 +28,7 @@ export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
 
   autoSwipeSubscription: Subscription;
 
-  lastClickedTime: number;
+  afterClickedSubject: Subject<any> = new Subject<any>();
   
   constructor() {
   }
@@ -50,8 +50,6 @@ export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
     positions[0] = 'center';
 
     this.positions = positions;
-    
-    this.lastClickedTime = Date.now();
 
     if(this.autoPlay) {
       this.autoSwipeSubscription = this.autoSwipe();
@@ -98,15 +96,19 @@ export class SlideComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   autoSwipe(): Subscription {
-    return Observable.interval(8000).filter( (_, _2) => {
-      return Date.now() - this.lastClickedTime >= 8000;
-    }).subscribe( _ => {
-      this.swipeTo( (this.currentIndex + 1) % this.slideShows.length, 'left');
-    });
+    return Observable
+      .of(null)
+      .concat(this.afterClickedSubject)
+      .switchMap( _ => Observable.interval(8000) )
+      .map( _ => {
+        this.swipeTo( (this.currentIndex + 1) % this.slideShows.length, 'left');
+        return null;
+      })
+      .subscribe();
   }
 
   moveTo(index: number, forceDirection?: string) {
-    this.lastClickedTime = Date.now();
+    this.afterClickedSubject.next("after clicked");
     this.swipeTo(index, forceDirection);
   }
 }

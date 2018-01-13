@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from '../shared/Post';
 import { PostService } from '../services/post.service';
-import 'rxjs/add/operator/switchMap';
 import { Picture } from '../shared/picture';
 import { ConcurrencyService } from '../services/concurrency.service';
 import { PictureService } from '../services/picture.service';
