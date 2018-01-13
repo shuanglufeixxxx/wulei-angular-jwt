@@ -1,5 +1,5 @@
 <div class="post-preview-area" *ngIf="pictures" fxLayout="row" (click)="navigateToPost()">
   <div class="one-picture-container" *ngFor="let picture of pictures" [style.width.%]="onePictureWidth" [style.height.%]="onePictureHeight">
-    <img src="{{baseURL + picture.source}}">
+    <img src="{{baseURL + picture.previewSource}}">
   </div>
 </div>

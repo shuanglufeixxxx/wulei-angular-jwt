@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Inject, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Picture } from '../shared/picture';
-import { PostPreview } from '../shared/PostPreview';
 import { PictureService } from '../services/picture.service';
 import { ConcurrencyService } from '../services/concurrency.service';
+import { Post } from '../shared/Post';
 
 @Component({
   selector: 'app-post-preview',
@@ -13,7 +13,7 @@ import { ConcurrencyService } from '../services/concurrency.service';
 })
 export class PostPreviewComponent implements OnInit, OnChanges {
 
-  @Input() preview: PostPreview;
+  @Input() post: Post;
   
   pictures: Picture[];
 
@@ -35,10 +35,10 @@ export class PostPreviewComponent implements OnInit, OnChanges {
   }
 
   prepareContent() {
-    this.concurrencyService.getMany(this.pictureService, this.preview.pictures)
+    this.concurrencyService.getMany(this.pictureService, this.post.previewPictures)
       .subscribe(pictures => this.pictures = pictures);
     
-    switch(this.preview.style) {
+    switch(this.post.previewStyle) {
       case 'one':
       this.onePictureWidth = "100";
       this.onePictureHeight = "100";
@@ -63,6 +63,6 @@ export class PostPreviewComponent implements OnInit, OnChanges {
   }
 
   navigateToPost() {
-    this.router.navigate(['post', this.preview.id]);
+    this.router.navigate(['post', this.post.id]);
   }
 }

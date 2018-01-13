@@ -1,7 +1,7 @@
 <div class="tv-series-area">
-  <div class="post-essential-container">
-    <app-post-preview [preview]="currentPreview" *ngIf="currentPreview"></app-post-preview>
-    <div class="post-title-container" *ngIf="currentPost">
+  <div class="post-essential-container" *ngIf="currentPost">
+    <app-post-preview [post]="currentPost"></app-post-preview>
+    <div class="post-title-container">
       <div class="post-title">{{currentPost.title}}</div>
     </div>
   </div>

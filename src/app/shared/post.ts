@@ -6,4 +6,6 @@ export class Post {
     text: string;
     date: string;
     classify: string;
+    previewPictures: string[];
+    previewStyle: string;
 }

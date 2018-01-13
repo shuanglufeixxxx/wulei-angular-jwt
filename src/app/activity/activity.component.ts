@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { PostPreview } from '../shared/PostPreview';
+import { Post } from '../shared/Post';
 import { ActivityTopPostService } from '../services/activity-top-post.service';
-import { PostPreviewService } from '../services/post-preview.service';
+import { PostService } from '../services/post.service';
 import { ActivityTopPost } from '../shared/activityTopPost';
 import { Observable } from 'rxjs/Observable';
 import { ConcurrencyService } from '../services/concurrency.service';
@@ -9,18 +9,18 @@ import { isMobileDevice } from '../shared/isMobileDevice';
 
 @Component({
   selector: 'app-activity',
-  providers: [ ActivityTopPostService, PostPreviewService, ConcurrencyService ],
+  providers: [ ActivityTopPostService, PostService, ConcurrencyService ],
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent implements OnInit {
 
-  activityTopPostPreviews: PostPreview[];
+  activityTopPosts: Post[];
 
   isMobileDevice: boolean;
 
   constructor(private activityTopPostService: ActivityTopPostService
-    , private postPreviewService: PostPreviewService
+    , private postService: PostService
     , private conccurencyService: ConcurrencyService) { }
 
   ngOnInit() {
@@ -32,8 +32,8 @@ export class ActivityComponent implements OnInit {
         ids.push(atp.postID);
       }
       
-      this.conccurencyService.getMany( this.postPreviewService, ids )
-        .subscribe( previews => this.activityTopPostPreviews = previews );
+      this.conccurencyService.getMany( this.postService, ids )
+        .subscribe( posts => this.activityTopPosts = posts );
     });
   }
 

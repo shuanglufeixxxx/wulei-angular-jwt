@@ -1,5 +1,5 @@
-<app-slide *ngIf="activityTopPostPreviews" [showIndicator]="true" [autoPlay]="true" [style.height.vw]="isMobileDevice ? 100 : 47.6">
-  <app-slide-show *ngFor="let preview of activityTopPostPreviews">
-    <app-post-preview [preview]="preview"></app-post-preview>
+<app-slide *ngIf="activityTopPosts" [showIndicator]="true" [autoPlay]="true" [style.height.vw]="isMobileDevice ? 100 : 47.6">
+  <app-slide-show *ngFor="let post of activityTopPosts">
+    <app-post-preview [post]="post"></app-post-preview>
   </app-slide-show>
 </app-slide>

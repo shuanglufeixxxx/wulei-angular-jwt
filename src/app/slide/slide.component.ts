@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterContentInit, OnDestroy, Input, ContentChildren, QueryList} from '@angular/core';
 import { swipeLeftSwipeRight } from '../animation/swipe-left-swipe-right';
-import { PostPreview } from '../shared/PostPreview';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { async } from 'rxjs/scheduler/async';
