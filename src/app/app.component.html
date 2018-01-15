@@ -2,8 +2,8 @@
 <div class="plain-content" [class.noScrollable]="menubarMobileOpen">
   <app-header fxShow [fxShow.xs]="false"></app-header>
   <app-header-mobile fxHide [fxHide.xs]="false" (openMenubarMobileRequest)="openMenubarMobile()"></app-header-mobile>
-  <router-outlet></router-outlet>
-  <app-footer fxShow [fxShow.xs]="false"></app-footer>
-  <app-footer-mobile fxHide [fxHide.xs]="false"></app-footer-mobile>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
 </div>
 <router-outlet name="action"></router-outlet>

@@ -1,5 +1,6 @@
-<div class="overlay">
-  <div class="showable">
+<div class="overlay" fxLayout="column" fxLayoutAlign="center center">
+  <div class="background-canvas" [style.animationName]="backgroundCanvasAnimation"></div>
+  <div class="showable" [style.animationName]="showableAnimation">
     <div class="picture-show">
       <img src="{{baseURL + 'images/pexels-photo-530158.jpeg'}}">
       <div (click)="close()">

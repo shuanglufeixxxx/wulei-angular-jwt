@@ -4,6 +4,8 @@ import { Picture } from '../shared/picture';
 import { PictureService } from '../services/picture.service';
 import { ConcurrencyService } from '../services/concurrency.service';
 import { Post } from '../shared/Post';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/delay';
 
 @Component({
   selector: 'app-post-preview',
@@ -20,6 +22,8 @@ export class PostPreviewComponent implements OnInit, OnChanges {
   onePictureWidth: string;
   onePictureHeight: string;
 
+  animationClass = { 'animationDisappear': false, 'animationAppear': false };
+
   constructor(private pictureService: PictureService
     , private concurrencyService: ConcurrencyService
     , @Inject('baseURL') private baseURL: string
@@ -27,17 +31,32 @@ export class PostPreviewComponent implements OnInit, OnChanges {
     , private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.prepareContent();
+    this.prepareContent().subscribe(pictures => {
+      this.applyPreviewStyle();
+      this.pictures = pictures;
+    });
   }
 
-  ngOnChanges( _: SimpleChanges) {
-    this.prepareContent();
-  }
-
-  prepareContent() {
-    this.concurrencyService.getMany(this.pictureService, this.post.previewPictures)
-      .subscribe(pictures => this.pictures = pictures);
+  ngOnChanges(simpleChange: SimpleChanges) {
+    if(simpleChange.post.previousValue === undefined) return;
     
+    this.animationClass = { 'animationDisappear': true, 'animationAppear': false };
+    
+    this.prepareContent()
+      .delay(100)
+      .map(pictures => {
+        this.applyPreviewStyle();
+        this.pictures = pictures;
+        this.animationClass = { 'animationDisappear': false, 'animationAppear': true };
+      })
+      .subscribe();
+  }
+
+  prepareContent(): Observable<Picture[]> {
+    return this.concurrencyService.getMany(this.pictureService, this.post.previewPictures);
+  }
+
+  applyPreviewStyle() {
     switch(this.post.previewStyle) {
       case 'one':
       this.onePictureWidth = "100";
@@ -60,9 +79,5 @@ export class PostPreviewComponent implements OnInit, OnChanges {
       this.onePictureHeight = "33.33";
       break;
     }
-  }
-
-  navigateToPost() {
-    this.router.navigate(['post', this.post.id]);
   }
 }

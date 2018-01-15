@@ -4,7 +4,7 @@ app-menubar-mobile {
   width: 100vw;
   height: 100vh;
   z-index: 2;
-  transition-timing-function: ease;
+  transition-timing-function: ease-out;
   transition-duration: 0.5s;
 }
 
@@ -21,12 +21,6 @@ app-menubar-mobile {
   }
 
   app-header-mobile {
-    display: block;
-    position: relative;
-    width: 100vw;
-  }
-
-  app-footer {
     display: block;
     position: relative;
     width: 100vw;

@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from '../shared/Post';
 import { PostService } from '../services/post.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/never';
+import { appearDisappear } from '../animation/appear-disapear';
 
 @Component({
   selector: 'app-tv-series',
   providers: [ PostService ],
+  animations: [ appearDisappear(true) ],
   templateUrl: './tv-series.component.html',
   styleUrls: ['./tv-series.component.scss']
 })
 export class TvSeriesComponent implements OnInit {
+
+  @HostBinding('@routeAppearDisappear') routeAnimationState = true;
 
   posts: Post[];
 

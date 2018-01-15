@@ -1,11 +1,11 @@
 <div class="slide-area">
   <div class="showable">
-    <div class="slide-show" *ngFor="let slideShow of slideShows, index as i" [@position]="positions[i]">
-      <ng-container [ngTemplateOutlet]="slideShow.content"></ng-container>
+    <div class="slide-show" *ngFor="let _ of slideShows; index as i" [style.animationName]='animationName[slideShows.length - 1 - i]'>
+      <ng-container [ngTemplateOutlet]="slideShows[slideShows.length - 1 - i].content"></ng-container>
     </div>
   </div>
   <div class="slide-indicator-container" *ngIf="showIndicator" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="24px">
-    <div class="slide-indicator" *ngFor="let _ of slideShows, index as i" [class.slideIndicatorActive]="i === currentIndex" (click)="moveTo(i)"></div>
+    <div class="slide-indicator" *ngFor="let _ of slideShows; index as i" [class.slideIndicatorActive]="i === currentIndex" (click)="moveTo(i)"></div>
   </div>
   <div class="previous" (click)="moveTo( (currentIndex + slideShows.length - 1) % slideShows.length, 'right' )">
     <ng-content select="[slide-previous]"></ng-content>

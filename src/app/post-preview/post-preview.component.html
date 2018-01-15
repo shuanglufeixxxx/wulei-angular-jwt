@@ -1,4 +1,4 @@
-<div class="post-preview-area" *ngIf="pictures" fxLayout="row" (click)="navigateToPost()">
+<div class="post-preview-area" *ngIf="pictures" fxLayout="row" [routerLink]="['/post', post.id]" [ngClass]="animationClass">
   <div class="one-picture-container" *ngFor="let picture of pictures" [style.width.%]="onePictureWidth" [style.height.%]="onePictureHeight">
     <img src="{{baseURL + picture.previewSource}}">
   </div>

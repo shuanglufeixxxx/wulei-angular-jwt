@@ -1,0 +1,23 @@
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { AnimationTriggerMetadata } from '@angular/animations';
+
+export function appearDisappear(appearDelay: boolean = false): AnimationTriggerMetadata {
+  return trigger('routeAppearDisappear', [
+    state('*', style({
+      opacity: 1
+    })),
+    transition('void => *', [
+      style({
+        position: 'absolute',
+        opacity: 0
+      }),
+      animate('300ms ' + (appearDelay ? 300 : 0) + 'ms ease-in')
+    ]),
+    transition('* => void', [
+      animate('300ms ease-out', style({
+        position: 'absolute',
+        opacity: 0
+      }))
+    ])
+  ]);
+}

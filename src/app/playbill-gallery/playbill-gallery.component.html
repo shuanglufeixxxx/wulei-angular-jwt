@@ -4,7 +4,7 @@
   </div>
   <div class="showable" #showableView>
     <div class="playbill-container" #playbillContainerView fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="18px" [style.left.px]="-styleLeft">
-      <div class="playbill-plus-title" *ngFor="let post of posts, index as i" (click)="navigateTo(i)">
+      <div class="playbill-plus-title" *ngFor="let post of posts; index as i" (click)="navigateTo(i)">
         <div class="playbill" *ngIf="playbills">
           <img src="{{baseURL + playbills[i].previewSource}}">
         </div>

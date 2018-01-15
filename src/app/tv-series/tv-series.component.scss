@@ -1,9 +1,11 @@
+@import '../app-theme';
+
 .tv-series-area {
   width: 100vw;
 
   .post-essential-container {
-    margin-top: 12px;
-    margin-bottom: 24px;
+    padding-top: 12px;
+    padding-bottom: 24px;
     width: 1280px / 1440px * 100%;
     height: 480px;
     @extend .horizontal-center;
@@ -21,7 +23,7 @@
       width: 160px;
       height: 36px;
       right: 0px;
-      bottom: 0px;
+      bottom: 24px;
       border-top-left-radius: 6px;
 
       .post-title {

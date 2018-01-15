@@ -1,16 +1,16 @@
 <div class="header-area">
   <div class="top-area">
     <div class="logo-container">
-      <img>
+      <div class="logo" routerLink="/"></div>
     </div>
     <div class="sign-in"><a [routerLink]="[{ outlets: { action: ['sign-in'] } }]">sign in</a></div>
   </div>
   <div class="nav-area" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="36px">
-    <div class="nav-item" appMenubarItem routerLink="activity" routerLinkActive="active"><span>activity</span></div>
-    <div class="nav-item" appMenubarItem routerLink="movie" routerLinkActive="active"><span>movie</span></div>
-    <div class="nav-item" appMenubarItem routerLink="tv-series" routerLinkActive="active"><span>tv series</span></div>
-    <div class="nav-item" appMenubarItem routerLink="fasion-show" routerLinkActive="active"><span>fasion show</span></div>
-    <div class="nav-item" appMenubarItem routerLink="advertisement" routerLinkActive="active"><span>advertisement</span></div>
-    <div class="nav-item" appMenubarItem routerLink="daily-life" routerLinkActive="active"><span>daily life</span></div>
+    <div class="nav-item" routerLink="/activity" [class.highlight]="isHighlight[0]" (mouseenter)="highlight(0)" (mouseleave)="removeHighlight(0)"><span>activity</span></div>
+    <div class="nav-item" routerLink="/movie" [class.highlight]="isHighlight[1]" (mouseenter)="highlight(1)" (mouseleave)="removeHighlight(1)"><span>movie</span></div>
+    <div class="nav-item" routerLink="/tv-series" [class.highlight]="isHighlight[2]" (mouseenter)="highlight(2)" (mouseleave)="removeHighlight(2)"><span>tv series</span></div>
+    <div class="nav-item" routerLink="/fasion-show" [class.highlight]="isHighlight[3]" (mouseenter)="highlight(3)" (mouseleave)="removeHighlight(3)"><span>fasion show</span></div>
+    <div class="nav-item" routerLink="/advertisement" [class.highlight]="isHighlight[4]" (mouseenter)="highlight(4)" (mouseleave)="removeHighlight(4)"><span>advertisement</span></div>
+    <div class="nav-item" routerLink="/daily-life" [class.highlight]="isHighlight[5]" (mouseenter)="highlight(5)" (mouseleave)="removeHighlight(5)"><span>daily life</span></div>
   </div>
 </div>

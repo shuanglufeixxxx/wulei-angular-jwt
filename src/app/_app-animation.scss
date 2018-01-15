@@ -1,0 +1,89 @@
+@keyframes swipeLeftDisappear {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes swipeLeftAppear {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes swipeRightDisappear {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes swipeRightAppear {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dropDown {
+  from {
+    transform: translateY(-100vh);
+  }
+  to {
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes fallDown {
+  from {
+    transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes throwUp {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(0vh);
+  }
+}
+
+@keyframes throwHigh {
+  from {
+    transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(-100vh);
+  }
+}

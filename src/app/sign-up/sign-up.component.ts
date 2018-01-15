@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,6 +21,10 @@ export class SignUpComponent implements OnInit {
   signUpGroup: FormGroup;
 
   styleLeft: number = 0;
+
+  backgroundCanvasAnimation: string;
+
+  showableAnimation: string;
 
   usernamePlaceholder = "Type a name";
   passwordPlaceholder = "Enter password";
@@ -54,6 +59,9 @@ export class SignUpComponent implements OnInit {
         === g.get('passwordConfirmGroup.passwordConfirmControl').value
         ? null : {'notmatch': true};
     }
+
+    this.backgroundCanvasAnimation = "appear";
+    this.showableAnimation = "dropDown";
   }
 
   nextStep(from: string) {
@@ -99,8 +107,16 @@ export class SignUpComponent implements OnInit {
     return user;
   }
 
+  closeAnimation(): Observable<any> {
+    this.backgroundCanvasAnimation = "disappear";
+    this.showableAnimation = "fallDown";
+    return Observable.of(null).delay(200);
+  }
+
   close() {
-    this.router.navigate( [{ outlets: { action: null } }] );
+    this.closeAnimation().subscribe( _ => {
+      this.router.navigate( [{ outlets: { action: null } }] );
+    })
   }
 
   tryAgain() {

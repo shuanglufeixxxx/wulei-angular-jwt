@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,6 +20,10 @@ export class SignInComponent implements OnInit {
 
   styleLeft: number = 0;
 
+  backgroundCanvasAnimation: string;
+
+  showableAnimation: string;
+
   constructor(private userService: UserService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -33,8 +38,10 @@ export class SignInComponent implements OnInit {
       passwordControl: ['', [ Validators.minLength(2), Validators.maxLength(10) ]]
     });
 
-    this.signInGroup = this.formBuilder.group(
-      {usernameGroup: this.usernameGroup, passwordGroup: this.passwordGroup});
+    this.signInGroup = this.formBuilder.group( {usernameGroup: this.usernameGroup, passwordGroup: this.passwordGroup} );
+
+    this.backgroundCanvasAnimation = "appear";
+    this.showableAnimation = "dropDown";
   }
 
   nextStep() {
@@ -67,12 +74,22 @@ export class SignInComponent implements OnInit {
     return user;
   }
 
+  closeAnimation(): Observable<any> {
+    this.backgroundCanvasAnimation = "disappear";
+    this.showableAnimation = "fallDown";
+    return Observable.of(null).delay(200);
+  }
+
   close() {
-    this.router.navigate( [{ outlets: { action: null } }] );
+    this.closeAnimation().subscribe( _ => {
+      this.router.navigate( [{ outlets: { action: null } }] );
+    })
   }
 
   navigateToSignUp() {
-    this.router.navigate( [{ outlets: { action: 'sign-up' } }] );
+    this.closeAnimation().subscribe( _ => {
+      this.router.navigate( [{ outlets: { action: 'sign-up' } }] );
+    })
   }
 
   tryAgain() {

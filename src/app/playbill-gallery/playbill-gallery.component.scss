@@ -1,4 +1,4 @@
-@import '../../theme';
+@import '../app-theme';
 
 .playbill-gallery-area {
   width: 100%;
@@ -22,7 +22,7 @@
     .playbill-container {
       position: absolute;
       height: 100%;
-      transition-timing-function: ease;
+      transition-timing-function: ease-in-out;
       transition-duration: 0.5s;
 
       .playbill-plus-title {

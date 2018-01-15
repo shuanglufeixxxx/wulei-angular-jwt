@@ -7,3 +7,5 @@
   </div>
   <app-playbill-gallery *ngIf="posts" [posts]="posts" (choosePost)="changeCurrentPost($event)"></app-playbill-gallery>
 </div>
+<app-footer fxShow [fxShow.xs]="false"></app-footer>
+<app-footer-mobile fxHide [fxHide.xs]="false"></app-footer-mobile>

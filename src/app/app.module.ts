@@ -21,7 +21,6 @@ import { AdvertisementComponent } from './advertisement/advertisement.component'
 import { PostPreviewComponent } from './post-preview/post-preview.component';
 import { SlideComponent } from './slide/slide.component';
 import { PlaybillGalleryComponent } from './playbill-gallery/playbill-gallery.component';
-import { MenubarItemDirective } from './header/menubar-item.directive';
 import { restangularConfigFactory } from './shared/restangularConfigFactory';
 import { baseURL } from './shared/baseURL';
 import { AppRoutingModule } from './app-routing.module';
@@ -50,7 +49,6 @@ import { SlideNextDirective } from './slide/slide-next.directive';
     PostPreviewComponent,
     SlideComponent,
     PlaybillGalleryComponent,
-    MenubarItemDirective,
     FooterMobileComponent,
     SignInComponent,
     SignUpComponent,

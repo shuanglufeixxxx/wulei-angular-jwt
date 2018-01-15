@@ -1,20 +1,30 @@
-@import "../../theme";
+@import '../app-theme';
 
 .overlay {
   width: 100vw;
   height: 100vh;
-  background-color: rgba($color: #000000, $alpha: 0.8);
   z-index: 4;
 
-  .showable {
+  .background-canvas {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    animation-timing-function: ease-out;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+  }
+
+  .showable {
     width: 400px;
     height: 400px;
     background: $primary-background-color;
     overflow: hidden;
+    animation-timing-function: ease;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
 
     .picture-show {
       width: 400px;
@@ -58,7 +68,7 @@
       width: 1200px;
       height: 154px;
       transition-duration: 0.4s;
-      transition-timing-function: ease;
+      transition-timing-function: ease-in-out;
       .username-step {
         @extend .step;
         form {

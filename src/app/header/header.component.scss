@@ -1,4 +1,4 @@
-@import "../../theme";
+@import '../app-theme';
 
 .header-area {
   width: 100%;
@@ -13,15 +13,33 @@
 
     .logo-container {
       width: 180px;
-      height: 24px;
-      top: 36px;
+      height: 48px;
+      top: 12px;
       left: 50%;
       transform: translateX(-50%);
 
-      img {
+      .logo {
         width: 180px;
-        height: 24px;
-        object-fit: cover;
+        height: 48px;
+        font-size: 50px;
+        text-align: center;
+        font-family: 'Qwigley', cursive;
+        outline: none;
+        cursor: default;
+        // font-family: 'Satisfy', cursive;
+        // font-family: 'Engagement', cursive;
+        // font-family: 'Amatic SC', cursive;
+        // font-family: 'Great Vibes', cursive;
+        // font-family: 'Sacramento', cursive;
+        // font-family: 'Marck Script', cursive;
+        // font-family: 'Pinyon Script', cursive;
+        // font-family: 'Parisienne', cursive;
+        // font-family: 'Petit Formal Script', cursive;
+        // font-family: 'Clicker Script', cursive;
+        // font-family: 'Herr Von Muellerhoff', cursive;
+        // font-family: 'Mr De Haviland', cursive;
+        // font-family: 'Montez', cursive;
+        // font-family: 'Qwigley', cursive;
       }
     }
 
@@ -35,7 +53,7 @@
       color: $primary-color;
       cursor: pointer;
       text-transform: uppercase;
-          
+      
       a:hover,
       a:active {
         text-decoration: underline;
@@ -57,11 +75,17 @@
       display: flex;
       align-items: center;
       outline: none;
-      cursor: pointer;
+      cursor: default;
 
       span {
         width: 100%;
       }
     }
   }
+}
+
+.highlight {
+  color: $primary-focused-color;
+  top: 1px;
+  font-weight: 900;
 }
