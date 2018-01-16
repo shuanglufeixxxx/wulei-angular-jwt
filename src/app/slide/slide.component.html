@@ -1,8 +1,13 @@
 <div class="slide-area">
   <div class="showable">
-    <div class="slide-show" *ngFor="let _ of slideShows; index as i" [style.animationName]='animationName[slideShows.length - 1 - i]'>
-      <ng-container [ngTemplateOutlet]="slideShows[slideShows.length - 1 - i].content"></ng-container>
+    <div class="slide-show" [style.animationName]='animationName[0]'>
+      <ng-container [ngTemplateOutlet]="slideShows[0].content"></ng-container>
     </div>
+    <ng-container *ngFor="let slideShow of slideShows; index as i; first as isFirst">
+      <div class="slide-show right" *ngIf="!isFirst" [style.animationName]='animationName[i]'>
+        <ng-container [ngTemplateOutlet]="slideShow.content"></ng-container>
+      </div>
+    </ng-container>
   </div>
   <div class="slide-indicator-container" *ngIf="showIndicator" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="24px">
     <div class="slide-indicator" *ngFor="let _ of slideShows; index as i" [class.slideIndicatorActive]="i === currentIndex" (click)="moveTo(i)"></div>
