@@ -17,7 +17,7 @@ export class PostPreviewComponent implements OnInit, OnChanges {
 
   @Input() post: Post;
   
-  pictures: Picture[];
+  pictures: Picture[][];
 
   onePictureWidth: string;
   onePictureHeight: string;
@@ -31,9 +31,8 @@ export class PostPreviewComponent implements OnInit, OnChanges {
     , private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.prepareContent().subscribe(pictures => {
-      this.applyPreviewStyle();
-      this.pictures = pictures;
+    this.getPreviewPictures().subscribe(pictures => {
+      this.prepareContent(pictures);
     });
   }
 
@@ -42,42 +41,40 @@ export class PostPreviewComponent implements OnInit, OnChanges {
     
     this.animationClass = { 'animationDisappear': true, 'animationAppear': false };
     
-    this.prepareContent()
+    this.getPreviewPictures()
       .delay(100)
       .map(pictures => {
-        this.applyPreviewStyle();
-        this.pictures = pictures;
+        this.prepareContent(pictures);
         this.animationClass = { 'animationDisappear': false, 'animationAppear': true };
       })
       .subscribe();
   }
 
-  prepareContent(): Observable<Picture[]> {
-    return this.concurrencyService.getMany(this.pictureService, this.post.previewPictures);
+  getPreviewPictures(): Observable<Picture[]> {
+    return this.pictureService.getList( this.post.previewPictureCollectionId );
   }
 
-  applyPreviewStyle() {
-    switch(this.post.previewStyle) {
-      case 'one':
-      this.onePictureWidth = "100";
-      this.onePictureHeight = "100";
-      break;
-      case 'two':
-      this.onePictureWidth = "50";
-      this.onePictureHeight = "100";
-      break;
-      case 'three':
-      this.onePictureWidth = "33.33";
-      this.onePictureHeight = "100";
-      break;
-      case 'four':
-      this.onePictureWidth = "50";
-      this.onePictureHeight = "50";
-      break;
-      case 'nine':
-      this.onePictureWidth = "33.33";
-      this.onePictureHeight = "33.33";
-      break;
+  prepareContent(pictures: Picture[]) {
+    var columns: number = +this.post.previewStyle.substr(0, 1);
+    var rows: number = +this.post.previewStyle.substr(2, 1);
+
+    this.onePictureWidth = (100.0 / columns).toString();
+    this.onePictureHeight = (100.0 / rows).toString();
+
+    console.log(this.onePictureWidth);
+    console.log(this.onePictureHeight);
+
+    var index = 0;
+    var picturesTemp: Picture[][] = [];
+    for(var i = 0; i < rows; i++) {
+      var rowContent = [];
+      for(var j = 0; j < columns; j++) {
+        rowContent.push(pictures[index]);
+        index += 1;
+      }
+      picturesTemp.push(rowContent);
     }
+    this.pictures = picturesTemp;
+    console.log(this.pictures);
   }
 }

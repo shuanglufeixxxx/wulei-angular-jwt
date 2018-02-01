@@ -1,5 +1,5 @@
 export class Like {
     id: string;
-    post: string;
-    user: string;
+    postId: string;
+    userId: string;
 }

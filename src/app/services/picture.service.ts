@@ -12,4 +12,8 @@ export class PictureService implements Gettable<Picture> {
   get(id: string): Observable<Picture> {
     return this.restangular.one('picture', id).get();
   }
+
+  getList(pictureCollectionId: string): Observable<Picture[]> {
+    return this.restangular.all('picture').getList({pictureCollectionId: pictureCollectionId});
+  }
 }

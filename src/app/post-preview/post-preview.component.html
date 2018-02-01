@@ -1,5 +1,7 @@
-<div class="post-preview-area" *ngIf="pictures" fxLayout="row" [routerLink]="['/post', post.id]" [ngClass]="animationClass">
-  <div class="one-picture-container" *ngFor="let picture of pictures" [style.width.%]="onePictureWidth" [style.height.%]="onePictureHeight">
-    <img src="{{baseURL + picture.previewSource}}">
+<div class="post-preview-area" *ngIf="pictures" fxLayout="column" [routerLink]="['/post', post.id]" [ngClass]="animationClass">
+  <div class="post-preview-row" *ngFor="let rowContent of pictures" fxLayout="row" [style.height.%]="onePictureHeight">
+    <div class="one-picture-container" *ngFor="let picture of rowContent" [style.width.%]="onePictureWidth">
+      <img src="{{baseURL + picture.previewSource}}">
+    </div>
   </div>
 </div>

@@ -2,7 +2,7 @@
   <div class="background-canvas" [style.animationName]="backgroundCanvasAnimation"></div>
   <div class="showable" [style.animationName]="showableAnimation">
     <div class="picture-show">
-      <img src="{{baseURL + 'images/pexels-photo-530158.jpeg'}}">
+      <img *ngIf="featuredPicture" src="{{baseURL + featuredPicture.source}}">
       <div (click)="close()">
         <i class="ion-ios-close-empty"></i>
       </div>

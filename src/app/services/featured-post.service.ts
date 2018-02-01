@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { RestangularModule, Restangular } from 'ngx-restangular';
-import { ActivityTopPost } from '../shared/activityTopPost';
+import { Post } from '../shared/Post';
 
 @Injectable()
-export class ActivityTopPostService {
+export class FeaturedPostService {
 
   constructor(private restangular: Restangular) { }
 
-  getList(): Observable<ActivityTopPost[]> {
-    return this.restangular.all('activityTopPost').getList();
+  getList(classify: string): Observable<Post[]> {
+    return this.restangular.all('featuredPost').getList({classify: classify});
   }
 
 }

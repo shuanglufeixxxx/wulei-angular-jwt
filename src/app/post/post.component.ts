@@ -38,7 +38,7 @@ export class PostComponent implements OnInit {
       })
       .switchMap(post => {
         this.post = post;
-        return this.concurrencyService.getMany(this.pictureService, this.post.pictures);
+        return this.pictureService.getList( this.post.pictureCollectionId );
       })
       .map(pictures => this.pictures = pictures)
       .subscribe();

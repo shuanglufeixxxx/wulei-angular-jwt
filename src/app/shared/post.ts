@@ -1,11 +1,11 @@
 export class Post {
     id: string;
-    pictures: string[];
+    pictureCollectionId: string;
     playbill: string;
     title: string;
-    text: string;
-    date: string;
+    essay: string;
+    createDate: string;
     classify: string;
-    previewPictures: string[];
+    previewPictureCollectionId: string;
     previewStyle: string;
 }

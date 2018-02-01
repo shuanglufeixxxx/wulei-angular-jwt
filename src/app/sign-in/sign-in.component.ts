@@ -3,14 +3,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs/Observable';
+import { Picture } from '../shared/picture';
+import { FeaturedPictureService } from '../services/featured-picture.service';
 
 @Component({
   selector: 'app-sign-in',
-  providers: [ UserService ],
+  providers: [ UserService, FeaturedPictureService ],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+
+  featuredPicture: Picture;
 
   usernameGroup: FormGroup;
 
@@ -25,6 +29,7 @@ export class SignInComponent implements OnInit {
   showableAnimation: string;
 
   constructor(private userService: UserService,
+    private featuredPictureService: FeaturedPictureService,
     private formBuilder: FormBuilder,
     private router: Router,
     @Inject('baseURL') private baseURL: string) { }
@@ -42,6 +47,10 @@ export class SignInComponent implements OnInit {
 
     this.backgroundCanvasAnimation = "appear";
     this.showableAnimation = "dropDown";
+    
+    this.featuredPictureService.getList("sign-in").subscribe(pictures => {
+      this.featuredPicture = pictures[0];
+    })
   }
 
   nextStep() {
