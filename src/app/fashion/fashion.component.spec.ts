@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FasionShowComponent } from './fasion-show.component';
+import { FashionComponent } from './fashion.component';
 
-describe('FasionShowComponent', () => {
-  let component: FasionShowComponent;
-  let fixture: ComponentFixture<FasionShowComponent>;
+describe('FashionComponent', () => {
+  let component: FashionComponent;
+  let fixture: ComponentFixture<FashionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FasionShowComponent ]
+      declarations: [ FashionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FasionShowComponent);
+    fixture = TestBed.createComponent(FashionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

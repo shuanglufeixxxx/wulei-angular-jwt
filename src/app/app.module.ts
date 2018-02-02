@@ -15,7 +15,6 @@ import { FooterComponent } from './footer/footer.component';
 import { ActivityComponent } from './activity/activity.component';
 import { TvSeriesComponent } from './tv-series/tv-series.component';
 import { MovieComponent } from './movie/movie.component';
-import { FasionShowComponent } from './fasion-show/fasion-show.component';
 import { DailyLifeComponent } from './daily-life/daily-life.component';
 import { AdvertisementComponent } from './advertisement/advertisement.component';
 import { PostPreviewComponent } from './post-preview/post-preview.component';
@@ -31,6 +30,7 @@ import { PostComponent } from './post/post.component';
 import { SlideShowComponent } from './slide/slide-show/slide-show.component';
 import { SlidePreviousDirective } from './slide/slide-previous.directive';
 import { SlideNextDirective } from './slide/slide-next.directive';
+import { FashionComponent } from './fashion/fashion.component';
 
 
 @NgModule({
@@ -43,7 +43,6 @@ import { SlideNextDirective } from './slide/slide-next.directive';
     ActivityComponent,
     TvSeriesComponent,
     MovieComponent,
-    FasionShowComponent,
     DailyLifeComponent,
     AdvertisementComponent,
     PostPreviewComponent,
@@ -55,7 +54,8 @@ import { SlideNextDirective } from './slide/slide-next.directive';
     PostComponent,
     SlideShowComponent,
     SlidePreviousDirective,
-    SlideNextDirective
+    SlideNextDirective,
+    FashionComponent
   ],
   imports: [
     BrowserModule,
