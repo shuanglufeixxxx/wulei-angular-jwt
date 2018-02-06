@@ -1,5 +1,41 @@
 .post-area {
   width: 100vw;
+
+  .title-plus-heart {
+    width: 1280px / 1440px * 100%;
+    height: 48px;
+
+    .title-container {
+      position: absolute;
+      left: 0px;
+      right: 48px;
+      height: 100%;
+
+      .title {
+        width: 100%;
+        text-align: left;
+        font-size: 24px;
+      }
+
+      .title-placeholder {
+        @extend .title;
+      }
+    }
+
+    .heart-container {
+      position: absolute;
+      right: 0px;
+      width: 48px;
+      font-size: 36px;
+    }
+  }
+
+  .essay-container {
+    width: 1280px / 1440px * 100%;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    text-align: left;
+  }
 }
 
 app-slide {
@@ -46,37 +82,4 @@ i {
   font-size: 32px;
   color: #505050;
   text-align: center;
-}
-
-.picture-show {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background: rgba($color: #000000, $alpha: 0.9);
-  z-index: 2;
-
-  .picture-container-big {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  }
-
-  .close {
-    position: absolute;
-    top: 40px;
-    right: 10%;
-    width: 50px;
-    height: 50px;
-    i {
-      font-size: 40px;
-    }
-  }
 }

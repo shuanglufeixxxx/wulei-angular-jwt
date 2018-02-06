@@ -9,7 +9,6 @@ import 'rxjs/add/operator/delay';
 
 @Component({
   selector: 'app-post-preview',
-  providers: [ PictureService, ConcurrencyService ],
   templateUrl: './post-preview.component.html',
   styleUrls: ['./post-preview.component.scss']
 })
@@ -61,9 +60,6 @@ export class PostPreviewComponent implements OnInit, OnChanges {
     this.onePictureWidth = (100.0 / columns).toString();
     this.onePictureHeight = (100.0 / rows).toString();
 
-    console.log(this.onePictureWidth);
-    console.log(this.onePictureHeight);
-
     var index = 0;
     var picturesTemp: Picture[][] = [];
     for(var i = 0; i < rows; i++) {
@@ -75,6 +71,5 @@ export class PostPreviewComponent implements OnInit, OnChanges {
       picturesTemp.push(rowContent);
     }
     this.pictures = picturesTemp;
-    console.log(this.pictures);
   }
 }

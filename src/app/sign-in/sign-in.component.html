@@ -12,7 +12,7 @@
     </div>
     <div class="steps" fxLayout="row" fxLayoutAlign="space-around center" [style.left.%]="styleLeft">
       <div class="username-step">
-        <form [formGroup]="usernameGroup" (ngSubmit)="nextStep()" novalidate>
+        <form [formGroup]="usernameGroup" (ngSubmit)="toEnterPasswordStep()" novalidate>
           <mat-form-field>
             <input matInput placeholder="Type account name" formControlName="usernameControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>

@@ -9,7 +9,6 @@ import { appearDisappear } from '../animation/appear-disapear';
 
 @Component({
   selector: 'app-tv-series',
-  providers: [ PostService ],
   animations: [ appearDisappear(true) ],
   templateUrl: './tv-series.component.html',
   styleUrls: ['./tv-series.component.scss']

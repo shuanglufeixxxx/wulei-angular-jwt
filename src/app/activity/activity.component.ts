@@ -9,7 +9,6 @@ import { appearDisappear } from '../animation/appear-disapear';
 
 @Component({
   selector: 'app-activity',
-  providers: [ FeaturedPostService, PostService, ConcurrencyService ],
   animations: [ appearDisappear(true) ],
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss']
@@ -30,7 +29,6 @@ export class ActivityComponent implements OnInit {
     this.isMobileDevice = isMobileDevice();
     this.featuredPostService.getList("activity").subscribe(featuredPosts => {
       this.featuredPosts = featuredPosts;
-      console.log(featuredPosts);
     });
   }
 

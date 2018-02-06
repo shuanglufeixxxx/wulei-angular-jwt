@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RestangularModule, Restangular } from 'ngx-restangular';
 
@@ -31,6 +31,14 @@ import { SlideShowComponent } from './slide/slide-show/slide-show.component';
 import { SlidePreviousDirective } from './slide/slide-previous.directive';
 import { SlideNextDirective } from './slide/slide-next.directive';
 import { FashionComponent } from './fashion/fashion.component';
+import { ConcurrencyService } from './services/concurrency.service';
+import { FeaturedPictureService } from './services/featured-picture.service';
+import { FeaturedPostService } from './services/featured-post.service';
+import { LikePostService } from './services/like-post.service';
+import { PictureService } from './services/picture.service';
+import { PostService } from './services/post.service';
+import { AccountService } from './services/account.service';
+import { Account } from './shared/Account';
 
 
 @NgModule({
@@ -66,11 +74,19 @@ import { FashionComponent } from './fashion/fashion.component';
     FlexLayoutModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule
   ],
   entryComponents: [
   ],
   providers: [
+    ConcurrencyService,
+    FeaturedPictureService,
+    FeaturedPostService,
+    LikePostService,
+    PictureService,
+    PostService,
+    AccountService,
     { provide: 'baseURL', useValue: baseURL }
   ],
   bootstrap: [AppComponent]

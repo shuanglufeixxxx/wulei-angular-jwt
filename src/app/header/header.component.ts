@@ -9,6 +9,8 @@ export class HeaderComponent implements OnInit {
 
   isHighlight: boolean[];
 
+  signedIn: boolean = false;
+
   constructor() { }
 
   ngOnInit() {

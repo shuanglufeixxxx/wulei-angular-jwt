@@ -6,10 +6,10 @@ import { Picture } from '../shared/picture';
 import { ConcurrencyService } from '../services/concurrency.service';
 import { PictureService } from '../services/picture.service';
 import { appearDisappear } from '../animation/appear-disapear';
+import { LikePostService } from '../services/like-post.service';
 
 @Component({
   selector: 'app-post',
-  providers: [ PostService, ConcurrencyService, PictureService ],
   animations: [ appearDisappear(true) ],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
@@ -22,11 +22,13 @@ export class PostComponent implements OnInit {
 
   pictures: Picture[];
 
+  likedPost: boolean = false;
+
   showPicture: Picture;
 
   constructor(private postService: PostService
-    , private concurrencyService: ConcurrencyService
     , private pictureService: PictureService
+    , private likePostService: LikePostService
     , @Inject('baseURL') private baseURL: string
     , private route: ActivatedRoute) { }
 
@@ -34,6 +36,7 @@ export class PostComponent implements OnInit {
     this.route.paramMap
       .switchMap(params => {
         let id = params.get("id");
+        // this.likePostService.likePostd(id).subscribe( likePostd => this.likePostdPost = likePostd, error => {} );
         return this.postService.get(id);
       })
       .switchMap(post => {
@@ -42,6 +45,14 @@ export class PostComponent implements OnInit {
       })
       .map(pictures => this.pictures = pictures)
       .subscribe();
+  }
+
+  likePost() {
+    // this.likePostService.likePost(this.post.id).subscribe( _ => this.likedPost = true );
+  }
+
+  dislikePost() {
+    // this.likePostService.dislikePost(this.post.id).subscribe( _ => this.likedPost = false );
   }
 
   show(picture: Picture) {

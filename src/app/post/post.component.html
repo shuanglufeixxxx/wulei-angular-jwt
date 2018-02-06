@@ -1,4 +1,4 @@
-<div class="post-area" fxLayout="column" fxLayoutAlign="start center">
+<div class="post-area" fxLayout="column" fxLayoutAlign="start center" *ngIf="post">
   <app-slide *ngIf="pictures">
     <app-slide-show *ngFor="let picture of pictures">
       <div class="picture-container" (click)="show(picture)">
@@ -17,14 +17,19 @@
       <i class="ion-ios-arrow-right"></i>
     </div>
   </app-slide>
+  <div class="title-plus-heart" fxLayout="row" fxLayoutAlign="start center">
+    <div class="title-container" fxLayout="row" fxLayoutAlign="start center">
+      <div class="title" *ngIf="post.title">{{post.title}}</div>
+      <div class="title-placeholder" *ngIf="!post.title">No Title</div>
+    </div>
+    <div class="heart-container">
+      <i class="ion-ios-heart" *ngIf="liked" (clisk)="dislikePost()"></i>
+      <i class="ion-ios-heart-outline" *ngIf="!liked" (click)="likePost()"></i>
+    </div>
+  </div>
+  <div class="essay-container">
+    <div class="essay">{{post.essay}}</div>
+  </div>
 </div>
 <app-footer fxShow [fxShow.xs]="false"></app-footer>
 <app-footer-mobile fxHide [fxHide.xs]="false"></app-footer-mobile>
-<div class="picture-show" *ngIf="showPicture">
-  <div class="picture-container-big">
-    <img src="{{baseURL + showPicture.source}}">
-  </div>
-  <div class="close" (click)="close()">
-    <i class="ion-ios-close-empty"></i>
-  </div>
-</div>

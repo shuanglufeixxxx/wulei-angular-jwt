@@ -1,14 +1,15 @@
 import { Component, OnInit, Inject, HostBinding } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { AccountService } from '../services/account.service';
 import { Observable } from 'rxjs/Observable';
 import { Picture } from '../shared/picture';
 import { FeaturedPictureService } from '../services/featured-picture.service';
+import { SignUpInfo } from '../shared/signUpInfo';
+import { Account } from '../shared/account';
 
 @Component({
   selector: 'app-sign-up',
-  providers: [ UserService, FeaturedPictureService ],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
@@ -34,11 +35,16 @@ export class SignUpComponent implements OnInit {
   passwordPlaceholder = "Enter password";
   passwordConfirmPlaceholder = "Enter your password again";
 
+  accountSignedIn: Observable<Account>;
+
   constructor(private formBuilder: FormBuilder,
     private featuredPictureService: FeaturedPictureService,
-    private userService: UserService,
+    private accountService: AccountService,
     private router: Router,
-    @Inject('baseURL') private baseURL: string) { }
+    @Inject('baseURL') private baseURL: string
+  ) {
+      this.accountSignedIn = this.accountService.getAccountSignedIn();
+  }
 
   ngOnInit() {
     this.usernameGroup = this.formBuilder.group({
@@ -70,7 +76,19 @@ export class SignUpComponent implements OnInit {
 
     this.featuredPictureService.getList("sign-up").subscribe(pictures => {
       this.featuredPicture = pictures[0];
-    })
+    });
+
+    this.accountSignedIn.subscribe(
+      account => {
+        if(account !== null) {
+          this.router.navigate( [{ outlets: { action: null } }] );
+        }
+      },
+      errorResponse => {
+        this.signUpGroup.reset();
+        this.styleLeft = -300;
+      }
+    );
   }
 
   nextStep(from: string) {
@@ -90,30 +108,20 @@ export class SignUpComponent implements OnInit {
 
   signUp() {
     if(this.signUpGroup.valid) {
-      let userInfo = this.deepCopyUserInfo();
-      this.userService.signUp(userInfo.username, userInfo.password).subscribe(
-        result => {
-          if(result) {
-            this.router.navigate( [{ outlets: { action: null } }] );
-          } else {
-            this.signUpGroup.reset();
-            this.styleLeft = -300;
-          }
-        }
-      );
-    } else if (this.signUpGroup.hasError('notmatch')) {
+      let signUpInfo = this.deepCopySignUpInfo();
+      this.accountService.signUp(signUpInfo);
+    }
+    else if (this.signUpGroup.hasError('notmatch')) {
       this.passwordConfirmGroup.reset();
       this.passwordConfirmPlaceholder = "Password not match. Enter your password again";
     }
   }
 
-  deepCopyUserInfo(): { username: string, password: string } {
-    let value = this.signUpGroup.value;
-    var user = {
-      username: this.signUpGroup.get('usernameGroup.usernameControl').value as string,
-      password: this.signUpGroup.get('passwordGroup.passwordControl').value as string
-    }
-    return user;
+  deepCopySignUpInfo(): SignUpInfo {
+    var signUpInfo = new SignUpInfo();
+    signUpInfo.username = this.signUpGroup.get('usernameGroup.usernameControl').value as string;
+    signUpInfo.password = this.signUpGroup.get('passwordGroup.passwordControl').value as string;
+    return signUpInfo;
   }
 
   closeAnimation(): Observable<any> {
