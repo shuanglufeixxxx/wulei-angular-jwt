@@ -4,7 +4,7 @@ import { RestangularModule, Restangular } from 'ngx-restangular';
 import { AccountService } from './account.service';
 
 @Injectable()
-export class LikePostService {
+export class PostLikeService {
 
   constructor(private restangular: Restangular,
     private userService: AccountService) { }

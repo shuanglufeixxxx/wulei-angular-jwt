@@ -34,7 +34,7 @@ import { FashionComponent } from './fashion/fashion.component';
 import { ConcurrencyService } from './services/concurrency.service';
 import { FeaturedPictureService } from './services/featured-picture.service';
 import { FeaturedPostService } from './services/featured-post.service';
-import { LikePostService } from './services/like-post.service';
+import { PostLikeService } from './services/post-like.service';
 import { PictureService } from './services/picture.service';
 import { PostService } from './services/post.service';
 import { AccountService } from './services/account.service';
@@ -83,7 +83,7 @@ import { Account } from './shared/Account';
     ConcurrencyService,
     FeaturedPictureService,
     FeaturedPostService,
-    LikePostService,
+    PostLikeService,
     PictureService,
     PostService,
     AccountService,
