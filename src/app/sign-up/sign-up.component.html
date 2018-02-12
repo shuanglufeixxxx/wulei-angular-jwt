@@ -12,7 +12,7 @@
     </div>
     <div class="steps" fxLayout="row" fxLayoutAlign="space-around center" [style.left.%]="styleLeft">
       <div class="username-step">
-        <form [formGroup]="usernameGroup" (ngSubmit)="nextStep('username')" novalidate>
+        <form autocomplete="off" [formGroup]="usernameGroup" (ngSubmit)="nextStep('username')" novalidate>
           <mat-form-field>
             <input matInput placeholder="{{usernamePlaceholder}}" formControlName="usernameControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
@@ -23,7 +23,7 @@
       <div class="password-step">
         <form [formGroup]="passwordGroup" (ngSubmit)="nextStep('password')" novalidate>
           <mat-form-field>
-            <input matInput placeholder="{{passwordPlaceholder}}" formControlName="passwordControl" maxlength="10" required>
+            <input matInput type="password" placeholder="{{passwordPlaceholder}}" formControlName="passwordControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
           </mat-form-field>
           <div>
@@ -34,7 +34,7 @@
       <div class="password-confirm-step">
         <form [formGroup]="passwordConfirmGroup" (ngSubmit)="signUp()" novalidate>
           <mat-form-field>
-            <input matInput placeholder="{{passwordConfirmPlaceholder}}" formControlName="passwordConfirmControl" maxlength="10" required>
+            <input matInput type="password" placeholder="{{passwordConfirmPlaceholder}}" formControlName="passwordConfirmControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
           </mat-form-field>
           <div>
@@ -43,7 +43,7 @@
         </form>
       </div>
       <div class="tip-step">
-        <div>Sign up failed. Your account name is already registered.</div>
+        <div>{{signUpFailedMessage}}</div>
         <button mat-button type="button" (click)="tryAgain()">Try again</button>
       </div>
     </div>

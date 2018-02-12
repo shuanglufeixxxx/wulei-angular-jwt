@@ -12,7 +12,7 @@
     </div>
     <div class="steps" fxLayout="row" fxLayoutAlign="space-around center" [style.left.%]="styleLeft">
       <div class="username-step">
-        <form [formGroup]="usernameGroup" (ngSubmit)="toEnterPasswordStep()" novalidate>
+        <form autocomplete="off" [formGroup]="usernameGroup" (ngSubmit)="toEnterPasswordStep()" novalidate>
           <mat-form-field>
             <input matInput placeholder="Type account name" formControlName="usernameControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
@@ -26,7 +26,7 @@
       <div class="password-step">
         <form [formGroup]="passwordGroup" (ngSubmit)="signIn()" novalidate>
           <mat-form-field>
-            <input matInput placeholder="Enter password" formControlName="passwordControl" maxlength="10" required>
+            <input matInput type="password" placeholder="Enter password" formControlName="passwordControl" maxlength="10" required>
             <mat-hint>2 to 10 charactors is required</mat-hint>
           </mat-form-field>
           <div>
@@ -35,7 +35,7 @@
         </form>
       </div>
       <div class="tip-step">
-        <div>Account name or password not matched.</div>
+        <div>{{signInFailedMessage}}</div>
         <button mat-button type="button" (click)="tryAgain()">Try again</button>
       </div>
     </div>

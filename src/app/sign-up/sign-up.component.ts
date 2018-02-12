@@ -5,7 +5,6 @@ import { AccountService } from '../services/account.service';
 import { Observable } from 'rxjs/Observable';
 import { Picture } from '../shared/picture';
 import { FeaturedPictureService } from '../services/featured-picture.service';
-import { SignUpInfo } from '../shared/signUpInfo';
 import { Account } from '../shared/account';
 
 @Component({
@@ -35,16 +34,14 @@ export class SignUpComponent implements OnInit {
   passwordPlaceholder = "Enter password";
   passwordConfirmPlaceholder = "Enter your password again";
 
-  accountSignedIn: Observable<Account>;
+  signUpFailedMessage: string = "Sign up failed.";
 
   constructor(private formBuilder: FormBuilder,
     private featuredPictureService: FeaturedPictureService,
     private accountService: AccountService,
     private router: Router,
     @Inject('baseURL') private baseURL: string
-  ) {
-      this.accountSignedIn = this.accountService.getAccountSignedIn();
-  }
+  ) {}
 
   ngOnInit() {
     this.usernameGroup = this.formBuilder.group({
@@ -77,18 +74,6 @@ export class SignUpComponent implements OnInit {
     this.featuredPictureService.getList("sign-up").subscribe(pictures => {
       this.featuredPicture = pictures[0];
     });
-
-    this.accountSignedIn.subscribe(
-      account => {
-        if(account !== null) {
-          this.router.navigate( [{ outlets: { action: null } }] );
-        }
-      },
-      errorResponse => {
-        this.signUpGroup.reset();
-        this.styleLeft = -300;
-      }
-    );
   }
 
   nextStep(from: string) {
@@ -109,7 +94,14 @@ export class SignUpComponent implements OnInit {
   signUp() {
     if(this.signUpGroup.valid) {
       let signUpInfo = this.deepCopySignUpInfo();
-      this.accountService.signUp(signUpInfo);
+      this.accountService
+        .signUp(signUpInfo.username, signUpInfo.passowrd)
+        .subscribe( ()=> {
+          this.afterSignedUpSuccess();
+        },
+        error => {
+          this.afterSignedUpFailed(error.message);
+        });
     }
     else if (this.signUpGroup.hasError('notmatch')) {
       this.passwordConfirmGroup.reset();
@@ -117,10 +109,10 @@ export class SignUpComponent implements OnInit {
     }
   }
 
-  deepCopySignUpInfo(): SignUpInfo {
-    var signUpInfo = new SignUpInfo();
-    signUpInfo.username = this.signUpGroup.get('usernameGroup.usernameControl').value as string;
-    signUpInfo.password = this.signUpGroup.get('passwordGroup.passwordControl').value as string;
+  deepCopySignUpInfo(): any {
+    var signUpInfo = {};
+    Object.assign( signUpInfo, {username: this.signUpGroup.get('usernameGroup.usernameControl').value as string} );
+    Object.assign( signUpInfo, {password: this.signUpGroup.get('passwordGroup.passwordControl').value as string} );
     return signUpInfo;
   }
 
@@ -134,6 +126,16 @@ export class SignUpComponent implements OnInit {
     this.closeAnimation().subscribe( _ => {
       this.router.navigate( [{ outlets: { action: null } }] );
     })
+  }
+
+  afterSignedUpFailed(message?: string) {
+    this.signUpFailedMessage = message;
+    this.signUpGroup.reset();
+    this.styleLeft = -200;
+  }
+
+  afterSignedUpSuccess() {
+    this.router.navigate( [{ outlets: { action: null } }] );
   }
 
   tryAgain() {

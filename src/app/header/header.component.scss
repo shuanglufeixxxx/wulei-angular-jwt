@@ -26,20 +26,6 @@
         font-family: 'Qwigley', cursive;
         outline: none;
         cursor: default;
-        // font-family: 'Satisfy', cursive;
-        // font-family: 'Engagement', cursive;
-        // font-family: 'Amatic SC', cursive;
-        // font-family: 'Great Vibes', cursive;
-        // font-family: 'Sacramento', cursive;
-        // font-family: 'Marck Script', cursive;
-        // font-family: 'Pinyon Script', cursive;
-        // font-family: 'Parisienne', cursive;
-        // font-family: 'Petit Formal Script', cursive;
-        // font-family: 'Clicker Script', cursive;
-        // font-family: 'Herr Von Muellerhoff', cursive;
-        // font-family: 'Mr De Haviland', cursive;
-        // font-family: 'Montez', cursive;
-        // font-family: 'Qwigley', cursive;
       }
     }
 
@@ -56,6 +42,15 @@
       
       a:hover,
       a:active {
+        text-decoration: underline;
+      }
+    }
+
+    .account-profile {
+      @extend .sign-in;
+
+      span:hover,
+      span:active {
         text-decoration: underline;
       }
     }

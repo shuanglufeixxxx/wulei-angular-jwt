@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, HostBinding } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, OnDestroy, Inject, HostBinding } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Post } from '../shared/Post';
 import { PostService } from '../services/post.service';
 import { Picture } from '../shared/picture';
@@ -7,6 +7,16 @@ import { ConcurrencyService } from '../services/concurrency.service';
 import { PictureService } from '../services/picture.service';
 import { appearDisappear } from '../animation/appear-disapear';
 import { PostLikeService } from '../services/post-like.service';
+import { AccountService } from '../services/account.service';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { async } from 'rxjs/scheduler/async';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/concat';
+import 'rxjs/add/operator/pairwise';
+import 'rxjs/add/operator/reduce';
 
 @Component({
   selector: 'app-post',
@@ -14,7 +24,7 @@ import { PostLikeService } from '../services/post-like.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
 
   @HostBinding('@routeAppearDisappear') routeAnimationState = true;
 
@@ -24,42 +34,83 @@ export class PostComponent implements OnInit {
 
   likedPost: boolean = false;
 
-  showPicture: Picture;
+  likedPostNumber: number;
+
+  retrieveContentSubscription: Subscription;
 
   constructor(private postService: PostService
     , private pictureService: PictureService
     , private postLikeService: PostLikeService
+    , private accountService: AccountService
     , @Inject('baseURL') private baseURL: string
-    , private route: ActivatedRoute) { }
+    , private route: ActivatedRoute
+    , private router: Router) { }
 
   ngOnInit() {
-    this.route.paramMap
+    this.retrieveContentSubscription = this.route.paramMap
       .switchMap(params => {
         let id = params.get("id");
-        // this.postLikeService.postLiked(id).subscribe( postLiked => this.postLikedPost = postLiked, error => {} );
         return this.postService.get(id);
       })
       .switchMap(post => {
         this.post = post;
-        return this.pictureService.getList( this.post.pictureCollectionId );
+
+        let likedPostObservable: Observable<boolean> = this.accountService
+          .getAccountSignedIn()
+          .switchMap( _ => {
+            return this.postLikeService
+              .getLiked(this.post.id)
+          })
+          .map(likedPost => this.likedPost = likedPost);
+
+        let likedPostNumberObservable: Observable<number> = this.postLikeService
+          .getPostLikeCount(this.post.id)
+          .map(count => this.likedPostNumber = count);
+        
+        return this.pictureService
+          .getList( this.post.pictureCollectionId )
+          .map(pictures => this.pictures = pictures)
+          .merge(likedPostObservable)
+          .merge(likedPostNumberObservable);
       })
-      .map(pictures => this.pictures = pictures)
       .subscribe();
   }
 
+  ngOnDestroy() {
+    this.retrieveContentSubscription.unsubscribe();
+  }
+
   likePost() {
-    // this.postLikeService.likePost(this.post.id).subscribe( _ => this.likedPost = true );
+    this.accountService
+      .getSignedInOnce()
+      .switchMap(signedIn => {
+        if(signedIn) {
+          return this.postLikeService
+            .likePost(this.post.id)
+            .map( _ => this.likedPost = true );
+        }
+        else {
+          this.router.navigate( [{outlets: { action: "sign-in" } }]);
+          return Observable.empty<boolean>();
+        }
+      })
+      .subscribe();
   }
 
   dislikePost() {
-    // this.postLikeService.dislikePost(this.post.id).subscribe( _ => this.likedPost = false );
-  }
-
-  show(picture: Picture) {
-    this.showPicture = picture;
-  }
-
-  close() {
-    this.showPicture = null;
+    this.accountService
+      .getSignedInOnce()
+      .switchMap(signedIn => {
+        if(signedIn) {
+          return this.postLikeService
+            .dislikePost(this.post.id)
+            .map( _ => this.likedPost = false );
+        }
+        else {
+          this.router.navigate( [{outlets: { action: "sign-in" } }]);
+          return Observable.empty<boolean>()
+        }
+      })
+      .subscribe();
   }
 }

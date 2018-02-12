@@ -5,7 +5,6 @@ import { AccountService } from '../services/account.service';
 import { Observable } from 'rxjs/Observable';
 import { Picture } from '../shared/picture';
 import { FeaturedPictureService } from '../services/featured-picture.service';
-import { SignInInfo } from '../shared/signInInfo';
 import { Account } from '../shared/account';
 
 @Component({
@@ -29,16 +28,14 @@ export class SignInComponent implements OnInit {
 
   showableAnimation: string;
 
-  accountSignedIn: Observable<Account>;
+  signInFailedMessage: string = "Sign in failed.";
 
   constructor(private accountService: AccountService,
     private featuredPictureService: FeaturedPictureService,
     private formBuilder: FormBuilder,
     private router: Router,
     @Inject('baseURL') private baseURL: string
-  ) {
-      this.accountSignedIn = this.accountService.getAccountSignedIn();
-  }
+  ) {}
 
   ngOnInit() {
     this.usernameGroup = this.formBuilder.group({
@@ -57,18 +54,6 @@ export class SignInComponent implements OnInit {
     this.featuredPictureService.getList("sign-in").subscribe(pictures => {
       this.featuredPicture = pictures[0];
     });
-
-    this.accountSignedIn.subscribe(
-      account => {
-        if(account !== null) {
-          this.router.navigate( [{ outlets: { action: null } }] );
-        }
-      },
-      errorResponse => {
-        this.signInGroup.reset();
-        this.styleLeft = -200;
-      }
-    );
   }
 
   toEnterPasswordStep() {
@@ -80,14 +65,21 @@ export class SignInComponent implements OnInit {
   signIn() {
     if(this.signInGroup.valid) {
       let signInInfo = this.deepCopySignInInfo();
-      this.accountService.signIn(signInInfo);
+      this.accountService
+        .signIn(signInInfo.username, signInInfo.password)
+        .subscribe( ()=> {
+          this.afterSignedInSuccess();
+        },
+        error => {
+          this.afterSignedInFailed(error.message);
+        });
     }
   }
 
-  deepCopySignInInfo(): SignInInfo {
-    var signInInfo = new SignInInfo();
-    signInInfo.username = this.signInGroup.get('usernameGroup.usernameControl').value as string;
-    signInInfo.password = this.signInGroup.get('passwordGroup.passwordControl').value as string;
+  deepCopySignInInfo(): any {
+    var signInInfo = {};
+    Object.assign( signInInfo, {username: this.signInGroup.get('usernameGroup.usernameControl').value as string} );
+    Object.assign( signInInfo, {password: this.signInGroup.get('passwordGroup.passwordControl').value as string} );
     return signInInfo;
   }
 
@@ -107,6 +99,16 @@ export class SignInComponent implements OnInit {
     this.closeAnimation().subscribe( _ => {
       this.router.navigate( [{ outlets: { action: 'sign-up' } }] );
     })
+  }
+
+  afterSignedInFailed(message?: string) {
+    this.signInFailedMessage = message;
+    this.signInGroup.reset();
+    this.styleLeft = -200;
+  }
+
+  afterSignedInSuccess() {
+    this.router.navigate( [{ outlets: { action: null } }] );
   }
 
   tryAgain() {

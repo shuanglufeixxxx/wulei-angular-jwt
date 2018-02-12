@@ -1,0 +1,1 @@
+export const timeOutMilliseconds: number = 30000;

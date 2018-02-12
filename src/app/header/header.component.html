@@ -3,10 +3,11 @@
     <div class="logo-container">
       <div class="logo" routerLink="/"></div>
     </div>
-    <div class="sign-in" *ngIf="!signedIn"><a [routerLink]="[{ outlets: { action: ['sign-in'] } }]">sign in</a></div>
-    <div class="account-profile" *ngIf="signedIn"><span [matMenuTriggerFor]="accountProfileMenu">{{account.username}}</span></div>
-    <mat-menu #accountProfileMenu="matMenu" [yPosition]="'below'">
-      <span mat-menu-item><span (click)="signOut()">sign out</span></span>
+    <div class="sign-in" *ngIf="!account"><a [routerLink]="[{ outlets: { action: ['sign-in'] } }]">sign in</a></div>
+    <div class="account-profile" *ngIf="account"><span [matMenuTriggerFor]="accountProfileMenu">{{account.username}}</span></div>
+    <mat-menu #accountProfileMenu="matMenu" [xPosition]="'before'" [yPosition]="'below'">
+      <button mat-menu-item><span>liked post</span></button>
+      <button mat-menu-item (click)="signOut()"><span>sign out</span></button>
     </mat-menu>
   </div>
   <div class="nav-area" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="36px">

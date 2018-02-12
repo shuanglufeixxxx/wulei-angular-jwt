@@ -20,7 +20,7 @@ import { AdvertisementComponent } from './advertisement/advertisement.component'
 import { PostPreviewComponent } from './post-preview/post-preview.component';
 import { SlideComponent } from './slide/slide.component';
 import { PlaybillGalleryComponent } from './playbill-gallery/playbill-gallery.component';
-import { restangularConfigFactory } from './shared/restangularConfigFactory';
+import { restangularConfig } from './shared/restangularConfig';
 import { baseURL } from './shared/baseURL';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
@@ -39,6 +39,8 @@ import { PictureService } from './services/picture.service';
 import { PostService } from './services/post.service';
 import { AccountService } from './services/account.service';
 import { Account } from './shared/Account';
+import { REST_FUL_RESPONSE, restangularFullResponseConfig } from './shared/restangularFullResponseConfig';
+import { timeOutMilliseconds } from './shared/timeOutMilliseconds';
 
 
 @NgModule({
@@ -69,7 +71,7 @@ import { Account } from './shared/Account';
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    RestangularModule.forRoot(restangularConfigFactory),
+    RestangularModule.forRoot(restangularConfig),
     AppRoutingModule,
     FlexLayoutModule,
     MatButtonModule,
@@ -87,7 +89,9 @@ import { Account } from './shared/Account';
     PictureService,
     PostService,
     AccountService,
-    { provide: 'baseURL', useValue: baseURL }
+    { provide: 'baseURL', useValue: baseURL },
+    { provide: 'timeOutMilliseconds', useValue: timeOutMilliseconds },
+    { provide: REST_FUL_RESPONSE, useFactory: restangularFullResponseConfig, deps: [Restangular]}
   ],
   bootstrap: [AppComponent]
 })

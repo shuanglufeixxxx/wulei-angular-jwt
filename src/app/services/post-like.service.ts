@@ -1,33 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { RestangularModule, Restangular } from 'ngx-restangular';
+import { Restangular } from 'ngx-restangular';
 import { AccountService } from './account.service';
 
 @Injectable()
 export class PostLikeService {
 
   constructor(private restangular: Restangular,
-    private userService: AccountService) { }
+    private accountService: AccountService) { }
 
-  // likePost(postId: string): Observable<any> {
-  //   if( !this.userService.signedIn() ) return Observable.empty();
+  likePost(postId: string): Observable<any> {
+    return this.accountService
+      .getAccountSignedInOnce()
+      .filter(account => account !== null)
+      .switchMap(account => {
+        return this.restangular
+          .all("postLike")
+          .post( {postId: postId} );
+      });
+  }
 
-  //   return this.restangular.all('likePost')
-  //     .post( {postId: postId, userId: this.userService.getAccountSignedIn().id} );
-  // }
+  dislikePost(postId: string): Observable<any> {
+    return this.accountService
+      .getAccountSignedInOnce()
+      .filter(account => account !== null)
+      .switchMap(account => {
+        return this.restangular
+          .all("postLike")
+          .remove( {postId: postId} );
+      });
+  }
 
-  // dislikePost(postId: string): Observable<any> {
-  //   if( !this.userService.signedIn() ) return Observable.empty();
+  getLiked(postId: string): Observable<boolean> {
+    return this.accountService
+      .getAccountSignedInOnce()
+      .switchMap(account => {
+        if(account === null) {
+          return Observable.of(false);
+        }
+        
+        return this.restangular
+          .all("postLike")
+          .customGET("exist", {postId: postId})
+          .map(likedPost => likedPost.value);
+      });
+  }
 
-  //   return this.restangular.all('likePost')
-  //     .remove( {postId: postId, userId: this.userService.getAccountSignedIn().id} );
-  // }
-
-  // likePostd(postId: string): Observable<boolean> {
-  //   if( !this.userService.signedIn() ) return Observable.empty();
-
-  //   return this.restangular.all('likePost')
-  //     .getList( {postId: postId, userId: this.userService.getAccountSignedIn().id} );
-  // }
-
+  getPostLikeCount(postId: string): Observable<number> {
+    return this.restangular
+      .all("postLike")
+      .customGET("count", {postId: postId})
+      .map(count => count.value);
+  }
 }

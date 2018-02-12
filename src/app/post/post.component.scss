@@ -1,3 +1,5 @@
+@import '../app-theme';
+
 .post-area {
   width: 100vw;
 
@@ -15,6 +17,7 @@
         width: 100%;
         text-align: left;
         font-size: 24px;
+        color: $primary-color;
       }
 
       .title-placeholder {
@@ -26,7 +29,16 @@
       position: absolute;
       right: 0px;
       width: 48px;
-      font-size: 36px;
+
+      .heart-icon {
+        font-size: 36px;
+        color: #e44336;
+      }
+
+      .heart-outline-icon {
+        font-size: 36px;
+        color: #a0a0a0
+      }
     }
   }
 

@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'activity', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent, outlet: 'action'},
   { path: 'sign-up', component: SignUpComponent, outlet: 'action'},
-  { path: 'post/:id', component: PostComponent }
+  { path: 'p/:id', component: PostComponent }
 ];
 
 @NgModule({

@@ -78,7 +78,7 @@
             width: 376px;
           }
           button {
-            margin-top: 24px;
+            margin-top: 44px;
             width: 376px;
           }
         }
@@ -92,7 +92,7 @@
             width: 376px;
           }
           button {
-            margin-top: 24px;
+            margin-top: 44px;
             width: 376px;
           }
         }
@@ -106,7 +106,7 @@
             width: 376px;
           }
           button {
-            margin-top: 24px;
+            margin-top: 44px;
             width: 376px;
           }
         }
@@ -114,13 +114,14 @@
       .tip-step {
         @extend .step;
         div {
+          margin-top: 24px;
           font-family: Roboto,"Helvetica Neue", sans-serif;
           font-size: 14px;
-          color: $primary-warn-color;
+          color: $primary-color;
           text-align: center;
         }
         button {
-          margin-top: 24px;
+          margin-top: 52px;
           width: 376px;
         }
       }

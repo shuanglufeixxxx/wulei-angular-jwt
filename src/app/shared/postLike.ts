@@ -1,4 +1,4 @@
-export class LikePost {
+export class PostLike {
   id: string;
   postId: string;
   accountId: string;
