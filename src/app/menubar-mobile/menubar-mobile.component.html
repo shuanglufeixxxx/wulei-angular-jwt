@@ -3,6 +3,18 @@
     <i class="ion-ios-close-empty" (click)="emitCloseMenubarMobileRequest()"></i>
   </div>
   <nav class="nav-rows">
+    <div class="sign-in-row" *ngIf="!accountSignedIn" [routerLink]="[{ outlets: { action: ['sign-in'] } }]" (click)="emitCloseMenubarMobileRequest()">
+      <div class="sign-in-text">sign in</div>
+    </div>
+    <div class="account-profile-row" *ngIf="accountSignedIn">
+      <div class="account-profile-text">Welcome, {{accountSignedIn.username}}</div>
+    </div>
+    <div class="post-liked-row" *ngIf="accountSignedIn" [routerLink]="['my', 'post-liked']" (click)="emitCloseMenubarMobileRequest()">
+      <div class="post-liked-text">liked</div>
+    </div>
+    <div class="sign-out-row" *ngIf="accountSignedIn" (click)="signOut()">
+      <div class="sign-out-text">sign out</div>
+    </div>
     <div class="nav-row" routerLink="/activity" (click)="emitCloseMenubarMobileRequest()">
       <div class="nav-text">activity</div>
     </div>

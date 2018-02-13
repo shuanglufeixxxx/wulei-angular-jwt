@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Restangular } from 'ngx-restangular';
 import { AccountService } from './account.service';
+import { Post } from '../shared/Post';
 
 @Injectable()
 export class PostLikeService {
@@ -33,12 +34,9 @@ export class PostLikeService {
 
   getLiked(postId: string): Observable<boolean> {
     return this.accountService
-      .getAccountSignedInOnce()
+      .getSignedInOnce()
+      .filter(signedIn => signedIn)
       .switchMap(account => {
-        if(account === null) {
-          return Observable.of(false);
-        }
-        
         return this.restangular
           .all("postLike")
           .customGET("exist", {postId: postId})
@@ -51,5 +49,16 @@ export class PostLikeService {
       .all("postLike")
       .customGET("count", {postId: postId})
       .map(count => count.value);
+  }
+
+  getPostLikedList(): Observable<Post[]> {
+    return this.accountService
+      .getSignedInOnce()
+      .filter(signedIn => signedIn)
+      .switchMap( _ => {
+        return this.restangular
+          .all("postLike")
+          .customGETLIST("my");
+      });
   }
 }

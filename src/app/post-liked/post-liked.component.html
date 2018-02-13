@@ -1,0 +1,5 @@
+<div class="post-liked-area" *ngIf="postLiked" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="36px">
+  <app-post-preview class="post-liked" *ngFor="let post of postLiked" [post]="post"></app-post-preview>
+</div>
+<app-footer fxShow [fxShow.xs]="false"></app-footer>
+<app-footer-mobile fxHide [fxHide.xs]="false"></app-footer-mobile>

@@ -1,0 +1,10 @@
+<app-slide class="top-post-container" *ngIf="topPosts" [showIndicator]="true" [autoPlay]="true" [style.height.vw]="isMobileDevice ? 100 : 47.6">
+  <app-slide-show *ngFor="let post of topPosts">
+    <app-post-preview [post]="post"></app-post-preview>
+  </app-slide-show>
+</app-slide>
+<div class="featured-post-container" *ngIf="featuredPosts" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="36px">
+  <app-post-preview class="featured-post" *ngFor="let featuredPost of featuredPosts" [post]="featuredPost"></app-post-preview>
+</div>
+<app-footer fxShow [fxShow.xs]="false"></app-footer>
+<app-footer-mobile fxHide [fxHide.xs]="false"></app-footer-mobile>

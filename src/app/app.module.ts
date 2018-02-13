@@ -41,6 +41,9 @@ import { AccountService } from './services/account.service';
 import { Account } from './shared/Account';
 import { REST_FUL_RESPONSE, restangularFullResponseConfig } from './shared/restangularFullResponseConfig';
 import { timeOutMilliseconds } from './shared/timeOutMilliseconds';
+import { PostShowCanvasComponent } from './post-show-canvas/post-show-canvas.component';
+import { ShowPlusGalleryComponent } from './show-plus-gallery/show-plus-gallery.component';
+import { PostLikedComponent } from './post-liked/post-liked.component';
 
 
 @NgModule({
@@ -65,7 +68,10 @@ import { timeOutMilliseconds } from './shared/timeOutMilliseconds';
     SlideShowComponent,
     SlidePreviousDirective,
     SlideNextDirective,
-    FashionComponent
+    FashionComponent,
+    PostShowCanvasComponent,
+    ShowPlusGalleryComponent,
+    PostLikedComponent
   ],
   imports: [
     BrowserModule,

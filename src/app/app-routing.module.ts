@@ -9,6 +9,7 @@ import { DailyLifeComponent } from './daily-life/daily-life.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PostComponent } from './post/post.component';
+import { PostLikedComponent } from './post-liked/post-liked.component';
 
 const routes: Routes = [
   { path: 'activity', component: ActivityComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'activity', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent, outlet: 'action'},
   { path: 'sign-up', component: SignUpComponent, outlet: 'action'},
-  { path: 'p/:id', component: PostComponent }
+  { path: 'p/:id', component: PostComponent },
+  { path: 'my/post-liked', component: PostLikedComponent }
 ];
 
 @NgModule({

@@ -1,8 +1,8 @@
 <div class="header-mobile-area">
-  <div class="nav-icon-container" (click)="emitOpenMenubarMobileRequest()">
+  <div class="nav-icon-container" [style.color]="signedIn ? '#000000' : '#3f51b5'" (click)="emitOpenMenubarMobileRequest()">
     <i class="ion-navicon"></i>
   </div>
   <div class="logo-container">
-    <img>
+    <div class="logo" routerLink="/">WuLei</div>
   </div>
 </div>

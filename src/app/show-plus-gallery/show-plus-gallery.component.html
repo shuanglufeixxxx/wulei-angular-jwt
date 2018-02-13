@@ -1,0 +1,11 @@
+<div class="show-plus-gallery-area">
+  <div class="post-essential-container" *ngIf="currentPost">
+    <app-post-preview [post]="currentPost"></app-post-preview>
+    <div class="post-title-container">
+      <div class="post-title">{{currentPost.title}}</div>
+    </div>
+  </div>
+  <app-playbill-gallery *ngIf="posts" [posts]="posts" (choosePost)="changeCurrentPost($event)"></app-playbill-gallery>
+</div>
+<app-footer fxShow [fxShow.xs]="false"></app-footer>
+<app-footer-mobile fxHide [fxHide.xs]="false"></app-footer-mobile>

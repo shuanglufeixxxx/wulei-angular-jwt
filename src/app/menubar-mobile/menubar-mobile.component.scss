@@ -39,14 +39,49 @@
       outline: none;
 
       .nav-text {
-        top: 24px;
-        bottom: 24px;
-        left: 24px;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        padding-left: 24px;
         font-size: 10px;
         text-transform: uppercase;
         letter-spacing: 1px;
         word-spacing: 1px;
         color: $primary-color;
+      }
+    }
+
+    .sign-in-row {
+      @extend .nav-row;
+      
+      .sign-in-text {
+        @extend .nav-text;
+        color: #3f51b5;
+      }
+    }
+
+    .account-profile-row {
+      @extend .nav-row;
+
+      .account-profile-text {
+        @extend .nav-text;
+      }
+    }
+
+    .post-liked-row {
+      @extend .nav-row;
+
+      .post-liked-text {
+        @extend .nav-text;
+        color: #3f51b5;
+      }
+    }
+
+    .sign-out-row {
+      @extend .nav-row;
+
+      .sign-out-text {
+        @extend .nav-text;
+        color: #3f51b5;
       }
     }
   }

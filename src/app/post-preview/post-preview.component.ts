@@ -54,6 +54,11 @@ export class PostPreviewComponent implements OnInit, OnChanges {
   }
 
   prepareContent(pictures: Picture[]) {
+    if(pictures.length === 0) {
+      this.pictures = null;
+      return;
+    }
+
     var columns: number = +this.post.previewStyle.substr(0, 1);
     var rows: number = +this.post.previewStyle.substr(2, 1);
 

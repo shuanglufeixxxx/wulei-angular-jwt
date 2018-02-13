@@ -95,7 +95,7 @@ export class SignUpComponent implements OnInit {
     if(this.signUpGroup.valid) {
       let signUpInfo = this.deepCopySignUpInfo();
       this.accountService
-        .signUp(signUpInfo.username, signUpInfo.passowrd)
+        .signUp(signUpInfo.username, signUpInfo.password)
         .subscribe( ()=> {
           this.afterSignedUpSuccess();
         },

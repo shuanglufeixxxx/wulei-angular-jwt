@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Account } from '../shared/Account';
 import { AccountService } from '../services/account.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   accountSubscription: Subscription;
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService
+    , private router: Router) { }
 
   ngOnInit() {
     var isHighlight = new Array<boolean>(6);
@@ -44,5 +46,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   signOut() {
     this.accountService.signOut().subscribe();
+  }
+
+  navigateToPostLiked() {
+    this.router.navigate( ['my', 'post-liked'] );
   }
 }

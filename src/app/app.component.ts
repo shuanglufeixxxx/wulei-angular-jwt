@@ -11,7 +11,8 @@ export class AppComponent implements OnInit {
 
   menubarMobileOpen: boolean = false;
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService) {
+  }
 
   ngOnInit() {
     this.accountService.retrieveAccountSignedIn().subscribe();

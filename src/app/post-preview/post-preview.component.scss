@@ -20,6 +20,20 @@
   }
 }
 
+.place-holder {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+
+  .tip-text {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    color: #505050;
+    text-align: center;
+  }
+}
+
 .animationDisappear {
   animation-name: disappear;
   animation-timing-function: ease-out;
