@@ -3,6 +3,7 @@ import { PostLikeService } from '../services/post-like.service';
 import { Post } from '../shared/Post';
 import { AccountService } from '../services/account.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post-liked',
@@ -15,8 +16,12 @@ export class PostLikedComponent implements OnInit, OnDestroy {
 
   retrieveContentSubscription: Subscription;
 
-  constructor(private postLikeService: PostLikeService
-    , private accountService: AccountService) { }
+  constructor(private titleService: Title
+    , private postLikeService: PostLikeService
+    , private accountService: AccountService
+  ) {
+    titleService.setTitle("WULEI - LIKED")
+  }
 
   ngOnInit() {
     this.retrieveContentSubscription = this.accountService

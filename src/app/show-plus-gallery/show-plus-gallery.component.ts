@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/never';
 import { appearDisappear } from '../animation/appear-disapear';
 import { Subscription } from 'rxjs/Subscription';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-show-plus-gallery',
@@ -26,12 +27,16 @@ export class ShowPlusGalleryComponent implements OnInit, OnDestroy {
 
   retrieveContentSubscription: Subscription;
 
-  constructor(private postService: PostService
+  constructor(private titleService: Title
+    , private postService: PostService
     , private router: Router
-    , private route: ActivatedRoute) {
+    , private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle( "WULEI - " + ( this.classify ? this.classify.toUpperCase() : "" ) );
+    
     if(!this.classify) {
       return;
     }

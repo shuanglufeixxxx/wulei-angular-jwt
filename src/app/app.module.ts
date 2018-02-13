@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -44,6 +44,7 @@ import { timeOutMilliseconds } from './shared/timeOutMilliseconds';
 import { PostShowCanvasComponent } from './post-show-canvas/post-show-canvas.component';
 import { ShowPlusGalleryComponent } from './show-plus-gallery/show-plus-gallery.component';
 import { PostLikedComponent } from './post-liked/post-liked.component';
+import { DimensionService } from './services/dimension.service';
 
 
 @NgModule({
@@ -95,6 +96,8 @@ import { PostLikedComponent } from './post-liked/post-liked.component';
     PictureService,
     PostService,
     AccountService,
+    DimensionService,
+    Title,
     { provide: 'baseURL', useValue: baseURL },
     { provide: 'timeOutMilliseconds', useValue: timeOutMilliseconds },
     { provide: REST_FUL_RESPONSE, useFactory: restangularFullResponseConfig, deps: [Restangular]}

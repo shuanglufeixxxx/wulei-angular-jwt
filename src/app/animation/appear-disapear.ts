@@ -11,10 +11,10 @@ export function appearDisappear(appearDelay: boolean = false): AnimationTriggerM
         position: 'absolute',
         opacity: 0
       }),
-      animate('300ms ' + (appearDelay ? 300 : 0) + 'ms ease-in')
+      animate('300ms ' + (appearDelay ? '100' : '0') + 'ms ease-in')
     ]),
     transition('* => void', [
-      animate('300ms ease-out', style({
+      animate('100ms ease-out', style({
         position: 'absolute',
         opacity: 0
       }))

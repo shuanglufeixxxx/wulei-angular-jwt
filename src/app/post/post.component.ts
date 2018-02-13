@@ -17,6 +17,7 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/pairwise';
 import 'rxjs/add/operator/reduce';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post',
@@ -38,13 +39,17 @@ export class PostComponent implements OnInit, OnDestroy {
 
   retrieveContentSubscription: Subscription;
 
-  constructor(private postService: PostService
+  constructor(private titleService: Title
+    , private postService: PostService
     , private pictureService: PictureService
     , private postLikeService: PostLikeService
     , private accountService: AccountService
     , @Inject('baseURL') private baseURL: string
     , private route: ActivatedRoute
-    , private router: Router) { }
+    , private router: Router
+  ) {
+    titleService.setTitle("WULEI - POST");
+  }
 
   ngOnInit() {
     this.retrieveContentSubscription = this.route.paramMap
