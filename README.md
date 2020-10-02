@@ -1,6 +1,20 @@
 # WuLei
 
+A web frontend project for Wulei Fansite Demo.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+
+## Setup project
+
+sudo npm uninstall -g @angular/cli
+
+sudo npm install -g @angular/cli@1.6.3
+
+sudo npm update -g @angular/cli
+
+npm install
+
+npm update
 
 ## Development server
 
