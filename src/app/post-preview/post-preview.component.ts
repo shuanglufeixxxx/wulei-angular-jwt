@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Inject, OnChanges, SimpleChanges } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Picture } from '../shared/picture';
 import { PictureService } from '../services/picture.service';
-import { ConcurrencyService } from '../services/concurrency.service';
 import { Post } from '../shared/Post';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/delay';
@@ -24,10 +22,7 @@ export class PostPreviewComponent implements OnInit, OnChanges {
   animationClass = { 'animationDisappear': false, 'animationAppear': false };
 
   constructor(private pictureService: PictureService
-    , private concurrencyService: ConcurrencyService
-    , @Inject('imageURL') private imageURL: string
-    , private router: Router
-    , private route: ActivatedRoute) { }
+    , @Inject('imageURL') private imageURL: string) { }
 
   ngOnInit() {
     this.getPreviewPictures().subscribe(pictures => {

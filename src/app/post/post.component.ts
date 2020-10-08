@@ -1,16 +1,13 @@
 import { Component, OnInit, OnDestroy, Inject, HostBinding } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../shared/Post';
 import { PostService } from '../services/post.service';
-import { Picture } from '../shared/picture';
-import { ConcurrencyService } from '../services/concurrency.service';
 import { PictureService } from '../services/picture.service';
 import { appearDisappear } from '../animation/appear-disapear';
 import { PostLikeService } from '../services/post-like.service';
 import { AccountService } from '../services/account.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { async } from 'rxjs/scheduler/async';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/merge';
@@ -75,8 +72,10 @@ export class PostComponent implements OnInit, OnDestroy {
         return this.pictureService
           .getList( this.post.pictureCollectionId )
           .map(pictures => {
-            this.pictureIds = [];
-            return pictures.map(p => this.pictureIds.push(p.id));
+            var t = [];
+            pictures.map(p => t.push(p.id));
+            this.pictureIds = t;
+            return t;
           })
           .merge(likedPostObservable)
           .merge(likedPostNumberObservable);

@@ -1,11 +1,8 @@
 import { Component, OnInit, Input, Inject, ViewChild, ElementRef, AfterViewChecked, Output, EventEmitter } from '@angular/core';
 import { Post } from '../shared/Post';
-import { ConcurrencyService } from '../services/concurrency.service';
-import { PictureService } from '../services/picture.service';
 
 @Component({
   selector: 'app-playbill-gallery',
-  providers: [ ConcurrencyService, PictureService ],
   templateUrl: './playbill-gallery.component.html',
   styleUrls: ['./playbill-gallery.component.scss']
 })
@@ -25,9 +22,7 @@ export class PlaybillGalleryComponent implements OnInit, AfterViewChecked {
 
   @Output() choosePost: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private concurrencyService: ConcurrencyService
-    , private pictureService: PictureService
-    , @Inject('imageURL') private imageURL: string) { }
+  constructor(@Inject('imageURL') private imageURL: string) { }
 
   ngOnInit() {
     var ids: string[] = [];

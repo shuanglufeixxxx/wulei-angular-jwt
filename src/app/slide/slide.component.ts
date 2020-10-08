@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterContentInit, OnDestroy, Input, ContentChildren, QueryList} from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { async } from 'rxjs/scheduler/async';
 import { SlideShowComponent } from './slide-show/slide-show.component';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';

@@ -1,11 +1,9 @@
-import { Component, OnInit, Inject, HostBinding } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { AccountService } from '../services/account.service';
 import { Observable } from 'rxjs/Observable';
-import { Picture } from '../shared/picture';
 import { FeaturedPictureService } from '../services/featured-picture.service';
-import { Account } from '../shared/account';
 
 @Component({
   selector: 'app-sign-up',

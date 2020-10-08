@@ -6,8 +6,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Setup project
 
-sudo npm uninstall -g @angular/cli
-
 sudo npm install -g @angular/cli@1.6.3
 
 sudo npm update -g @angular/cli

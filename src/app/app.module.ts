@@ -6,7 +6,6 @@ import { MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule } fr
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RestangularModule, Restangular } from 'ngx-restangular';
 
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
@@ -38,7 +37,6 @@ import { PostLikeService } from './services/post-like.service';
 import { PictureService } from './services/picture.service';
 import { PostService } from './services/post.service';
 import { AccountService } from './services/account.service';
-import { Account } from './shared/Account';
 import { REST_FUL_RESPONSE, restangularFullResponseConfig } from './shared/restangularFullResponseConfig';
 import { timeOutMilliseconds } from './shared/timeOutMilliseconds';
 import { PostShowCanvasComponent } from './post-show-canvas/post-show-canvas.component';

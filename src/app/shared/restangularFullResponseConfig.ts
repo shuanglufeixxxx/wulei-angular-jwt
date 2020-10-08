@@ -1,4 +1,3 @@
-import { baseURL } from './baseURL';
 import { InjectionToken } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 

@@ -3,9 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AccountService } from '../services/account.service';
 import { Observable } from 'rxjs/Observable';
-import { Picture } from '../shared/picture';
 import { FeaturedPictureService } from '../services/featured-picture.service';
-import { Account } from '../shared/account';
 
 @Component({
   selector: 'app-sign-in',

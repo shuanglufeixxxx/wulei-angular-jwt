@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy, Input, HostListener, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, HostBinding } from '@angular/core';
 import { Post } from '../shared/Post';
 import { FeaturedPostService } from '../services/featured-post.service';
-import { PostService } from '../services/post.service';
 import { Observable } from 'rxjs/Observable';
-import { ConcurrencyService } from '../services/concurrency.service';
 import { appearDisappear } from '../animation/appear-disapear';
 import { DimensionService } from '../services/dimension.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -30,7 +28,6 @@ export class PostShowCanvasComponent implements OnInit, OnDestroy {
 
   constructor(private titleService: Title
     , private featuredPostService: FeaturedPostService
-    , private postService: PostService
     , private dimensionService: DimensionService
   ) {
   }

@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, HostBinding } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Post } from '../shared/Post';
 import { PostService } from '../services/post.service';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/never';
 import { appearDisappear } from '../animation/appear-disapear';
