@@ -1,8 +1,8 @@
 <div class="post-area" fxLayout="column" fxLayoutAlign="start center" *ngIf="post">
-  <app-slide *ngIf="pictures">
-    <app-slide-show *ngFor="let picture of pictures">
+  <app-slide *ngIf="pictureIds">
+    <app-slide-show *ngFor="let pictureId of pictureIds">
       <div class="picture-container">
-        <img src="{{baseURL + picture.source}}">
+        <img src="{{imageURL + pictureId}}">
       </div>
     </app-slide-show>
     <app-slide-show>
@@ -28,7 +28,7 @@
     </div>
   </div>
   <div class="essay-container">
-    <div class="essay">{{post.essay}}</div>
+    <p class="essay">{{post.essay}}</p>
   </div>
 </div>
 <app-footer fxShow [fxShow.xs]="false"></app-footer>

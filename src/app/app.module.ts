@@ -45,6 +45,7 @@ import { PostShowCanvasComponent } from './post-show-canvas/post-show-canvas.com
 import { ShowPlusGalleryComponent } from './show-plus-gallery/show-plus-gallery.component';
 import { PostLikedComponent } from './post-liked/post-liked.component';
 import { DimensionService } from './services/dimension.service';
+import { imageURL } from './shared/imageURL';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { DimensionService } from './services/dimension.service';
     DimensionService,
     Title,
     { provide: 'baseURL', useValue: baseURL },
+    { provide: 'imageURL', useValue: imageURL },
     { provide: 'timeOutMilliseconds', useValue: timeOutMilliseconds },
     { provide: REST_FUL_RESPONSE, useFactory: restangularFullResponseConfig, deps: [Restangular]}
   ],

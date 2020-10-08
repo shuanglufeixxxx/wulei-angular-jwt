@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Inject, ViewChild, ElementRef, AfterViewCheck
 import { Post } from '../shared/Post';
 import { ConcurrencyService } from '../services/concurrency.service';
 import { PictureService } from '../services/picture.service';
-import { Picture } from '../shared/picture';
 
 @Component({
   selector: 'app-playbill-gallery',
@@ -14,7 +13,7 @@ export class PlaybillGalleryComponent implements OnInit, AfterViewChecked {
 
   @Input() posts: Post[];
 
-  playbills: Picture[];
+  playbillIds: string[];
 
   @ViewChild('showableView') showableRef: ElementRef;
   @ViewChild('playbillContainerView') playbillContainerRef: ElementRef;
@@ -28,16 +27,15 @@ export class PlaybillGalleryComponent implements OnInit, AfterViewChecked {
 
   constructor(private concurrencyService: ConcurrencyService
     , private pictureService: PictureService
-    , @Inject('baseURL') private baseURL: string) { }
+    , @Inject('imageURL') private imageURL: string) { }
 
   ngOnInit() {
     var ids: string[] = [];
     for(let post of this.posts) {
-      ids.push(post.playbill);
+      ids.push(post.playbillId);
     }
-    
-    this.concurrencyService.getMany(this.pictureService, ids)
-      .subscribe( playbills => this.playbills = playbills );
+
+    this.playbillIds = ids;
   }
 
   ngAfterViewChecked() {

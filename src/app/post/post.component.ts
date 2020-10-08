@@ -31,7 +31,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   post: Post;
 
-  pictures: Picture[];
+  pictureIds: string[];
 
   likedPost: boolean = false;
 
@@ -44,7 +44,7 @@ export class PostComponent implements OnInit, OnDestroy {
     , private pictureService: PictureService
     , private postLikeService: PostLikeService
     , private accountService: AccountService
-    , @Inject('baseURL') private baseURL: string
+    , @Inject('imageURL') private imageURL: string
     , private route: ActivatedRoute
     , private router: Router
   ) {
@@ -74,7 +74,10 @@ export class PostComponent implements OnInit, OnDestroy {
         
         return this.pictureService
           .getList( this.post.pictureCollectionId )
-          .map(pictures => this.pictures = pictures)
+          .map(pictures => {
+            this.pictureIds = [];
+            return pictures.map(p => this.pictureIds.push(p.id));
+          })
           .merge(likedPostObservable)
           .merge(likedPostNumberObservable);
       })

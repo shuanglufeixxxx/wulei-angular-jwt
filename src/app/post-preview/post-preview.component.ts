@@ -16,7 +16,7 @@ export class PostPreviewComponent implements OnInit, OnChanges {
 
   @Input() post: Post;
   
-  pictures: Picture[][];
+  pictures: string[][];
 
   onePictureWidth: string;
   onePictureHeight: string;
@@ -25,7 +25,7 @@ export class PostPreviewComponent implements OnInit, OnChanges {
 
   constructor(private pictureService: PictureService
     , private concurrencyService: ConcurrencyService
-    , @Inject('baseURL') private baseURL: string
+    , @Inject('imageURL') private imageURL: string
     , private router: Router
     , private route: ActivatedRoute) { }
 
@@ -66,11 +66,11 @@ export class PostPreviewComponent implements OnInit, OnChanges {
     this.onePictureHeight = (100.0 / rows).toString();
 
     var index = 0;
-    var picturesTemp: Picture[][] = [];
+    var picturesTemp: string[][] = [];
     for(var i = 0; i < rows; i++) {
       var rowContent = [];
       for(var j = 0; j < columns; j++) {
-        rowContent.push(pictures[index]);
+        rowContent.push(pictures[index].id);
         index += 1;
       }
       picturesTemp.push(rowContent);

@@ -1,7 +1,7 @@
 export class Post {
     id: string;
     pictureCollectionId: string;
-    playbill: string;
+    playbillId: string;
     title: string;
     essay: string;
     createDate: string;

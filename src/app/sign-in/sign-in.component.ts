@@ -14,7 +14,7 @@ import { Account } from '../shared/account';
 })
 export class SignInComponent implements OnInit {
 
-  featuredPicture: Picture;
+  featuredPicture: String;
 
   usernameGroup: FormGroup;
 
@@ -34,7 +34,7 @@ export class SignInComponent implements OnInit {
     private featuredPictureService: FeaturedPictureService,
     private formBuilder: FormBuilder,
     private router: Router,
-    @Inject('baseURL') private baseURL: string
+    @Inject('imageURL') private imageURL: string
   ) {}
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class SignInComponent implements OnInit {
     this.showableAnimation = "dropDown";
     
     this.featuredPictureService.getList("sign-in").subscribe(pictures => {
-      this.featuredPicture = pictures[0];
+      this.featuredPicture = pictures[0].id;
     });
   }
 
