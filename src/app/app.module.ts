@@ -1,5 +1,5 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule } from '@angular/material';
@@ -44,6 +44,8 @@ import { ShowPlusGalleryComponent } from './show-plus-gallery/show-plus-gallery.
 import { PostLikedComponent } from './post-liked/post-liked.component';
 import { DimensionService } from './services/dimension.service';
 import { imageURL } from './shared/imageURL';
+import { CookieService } from 'ngx-cookie-service';
+import { InjectorWrapper } from './shared/InjectorWrapper';
 
 
 @NgModule({
@@ -97,6 +99,7 @@ import { imageURL } from './shared/imageURL';
     AccountService,
     DimensionService,
     Title,
+    CookieService,
     { provide: 'baseURL', useValue: baseURL },
     { provide: 'imageURL', useValue: imageURL },
     { provide: 'timeOutMilliseconds', useValue: timeOutMilliseconds },
@@ -104,4 +107,8 @@ import { imageURL } from './shared/imageURL';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+    InjectorWrapper.injector = injector;
+  }
+}
