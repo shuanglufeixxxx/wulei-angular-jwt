@@ -61,10 +61,15 @@ export class AccountService {
       if (signedIn) {
         return Observable.of(null);
       }
-
+      
       return this.restangularFullResponse
         .all("account")
-        .customPOST( {username: username, password: password}, "signIn" )
+        .customPOST(
+          "username=" + username + "&password=" + password,
+          "signIn",
+          {},
+          {'Content-Type': 'application/x-www-form-urlencoded'}
+        )
         .catch(errorResponse => {
           if(errorResponse.status === 401) {
             throw new Error("Sign in failed. Username or password don't match.");
@@ -96,7 +101,12 @@ export class AccountService {
 
       return this.restangularFullResponse
         .all("account")
-        .customPOST( {username: username, password: password}, "signUp" )
+        .customPOST(
+          "username=" + username + "&password=" + password,
+          "signUp",
+          {},
+          {'Content-Type': 'application/x-www-form-urlencoded'}
+        )
         .catch(errorResponse => {
           if(errorResponse.status === 401) {
             throw new Error("Sign up failed. Username already registered.");

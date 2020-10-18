@@ -1,1 +1,3 @@
-export const baseURL="http://localhost:8080/";
+import { deploymentUrl, developUrl, production } from "./environment";
+
+export const baseURL = production ? deploymentUrl : developUrl;
