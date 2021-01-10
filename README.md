@@ -1,6 +1,6 @@
 # WuLei
 
-The frontend source code for Wulei fansite project.\
+The frontend project for Wulei fansite.\
 This is the updated version of my old repository https://github.com/sparrowtree/wulei \
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
