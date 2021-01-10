@@ -47,7 +47,6 @@ import { imageURL } from './shared/imageURL';
 import { CookieService } from 'ngx-cookie-service';
 import { InjectorWrapper } from './shared/InjectorWrapper';
 
-
 @NgModule({
   declarations: [
     AppComponent,
