@@ -1,12 +1,12 @@
 import { CookieService } from "ngx-cookie-service";
-import { baseURL } from "./baseURL";
+import { baseUrl } from "./baseUrl";
 import { InjectorWrapper } from "./InjectorWrapper";
 
 const idempotentRequestMethods = ['get', 'head', 'options', 'trace'];
 
 export function restangularConfig(RestangularProvider) {
   RestangularProvider
-    .setBaseUrl(baseURL)
+    .setBaseUrl(baseUrl)
     .setPlainByDefault(true)
     .addFullRequestInterceptor(
       (element, operation: string, path, url, headers, params) => {

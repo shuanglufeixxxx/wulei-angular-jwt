@@ -1,3 +1,3 @@
-import { deploymentUrl, developUrl, production } from "./environment";
+import { environment } from "../../environments/environment";
 
-export const baseURL = production ? deploymentUrl : developUrl;
+export const baseUrl = environment.baseUrl

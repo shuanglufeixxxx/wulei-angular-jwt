@@ -1,3 +1,3 @@
-import { baseURL } from "./baseURL";
+import { baseUrl } from "./baseUrl";
 
-export const imageURL = baseURL + 'image/';
+export const imageURL = baseUrl + 'image/';

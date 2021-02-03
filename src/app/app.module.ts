@@ -20,7 +20,7 @@ import { PostPreviewComponent } from './post-preview/post-preview.component';
 import { SlideComponent } from './slide/slide.component';
 import { PlaybillGalleryComponent } from './playbill-gallery/playbill-gallery.component';
 import { restangularConfig } from './shared/restangularConfig';
-import { baseURL } from './shared/baseURL';
+import { baseUrl } from './shared/baseUrl';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -99,7 +99,7 @@ import { InjectorWrapper } from './shared/InjectorWrapper';
     DimensionService,
     Title,
     CookieService,
-    { provide: 'baseURL', useValue: baseURL },
+    { provide: 'baseUrl', useValue: baseUrl },
     { provide: 'imageURL', useValue: imageURL },
     { provide: 'timeOutMilliseconds', useValue: timeOutMilliseconds },
     { provide: REST_FUL_RESPONSE, useFactory: restangularFullResponseConfig, deps: [Restangular]}
