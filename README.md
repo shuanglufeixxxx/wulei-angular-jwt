@@ -2,7 +2,7 @@
 
 This is The frontend project for Wulei fansite.\
 The backend project for Wulei fansite is [here](https://github.com/shuanglufeixxxx/wulei-server)\
-This project is migrated and upgraded from my old github ([sparrowtree](https://github.com/sparrowtree))\
+This project is migrated and upgraded from my old github ([sparrowtree](https://github.com/sparrowtree/wulei))\
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
 ## Setup project
