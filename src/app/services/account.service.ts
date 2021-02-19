@@ -17,13 +17,6 @@ export class AccountService {
     @Inject('timeOutMilliseconds') private timeOutMilliseconds) {
   }
 
-  getByUsername(username: string): Observable<Account> {
-    return this.restangularFullResponse
-      .all("account")
-      .customGET("exist", {username: username})
-      .map(response => response.data)
-  }
-
   getAccountSignedIn(): Observable<Account> {
     return new Observable<Account>(observer => {
       let subscription: Subscription = this.accountSignedInSubject.subscribe(account => {
