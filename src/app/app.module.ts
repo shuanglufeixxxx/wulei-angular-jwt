@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RestangularModule, Restangular } from 'ngx-restangular';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -78,13 +78,13 @@ import { InjectorWrapper } from './shared/InjectorWrapper';
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    RestangularModule.forRoot(restangularConfig),
+    HttpClientModule,
     AppRoutingModule,
     FlexLayoutModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   entryComponents: [
   ],
