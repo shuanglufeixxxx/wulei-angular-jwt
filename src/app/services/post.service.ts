@@ -1,19 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Restangular } from 'ngx-restangular';
 import { Post } from '../shared/Post';
 import { Gettable } from './gettable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PostService implements Gettable<Post> {
 
-  constructor(private restangular: Restangular) { }
+  private url = '/post'
+
+  constructor(private http: HttpClient) { }
 
   get(id: string): Observable<Post> {
-    return this.restangular.one('post', id).get();
+    return this.http
+      .get<Post>(
+        `${this.url}/${id}`
+      )
   }
 
   getList(classify: string): Observable<Post[]> {
-    return this.restangular.all('post').getList({classify: classify});
+    return this.http
+      .get<Post[]>(
+        this.url,
+        {
+          params: {
+            classify: classify
+          }
+        }
+      )
   }
 }

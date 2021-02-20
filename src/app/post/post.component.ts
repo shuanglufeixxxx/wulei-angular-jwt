@@ -63,7 +63,7 @@ export class PostComponent implements OnInit, OnDestroy {
             return this.postLikeService
               .getLiked(this.post.id)
           })
-          .map(likedPost => this.likedPost = likedPost);
+          .map(likedPost => this.likedPost = likedPost.exist);
 
         let likedPostNumberObservable: Observable<number> = this.postLikeService
           .getPostLikeCount(this.post.id)

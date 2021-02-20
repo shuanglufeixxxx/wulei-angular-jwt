@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
 import { Observable } from 'rxjs/Observable';
 import { Gettable } from './gettable';
 
 @Injectable()
 export class ConcurrencyService {
 
-  constructor(private restangular: Restangular) { }
+  constructor() { }
 
   getMany<T>(gettable: Gettable<T>, ids: string[]): Observable<T[]> {
     if(ids === null || ids.length === 0) {
