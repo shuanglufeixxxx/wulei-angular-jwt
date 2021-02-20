@@ -3,17 +3,25 @@ import { Observable } from 'rxjs/Observable';
 import { Account } from '../shared/Account';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
-import { Restangular } from 'ngx-restangular';
-import { REST_FUL_RESPONSE } from '../shared/restangularFullResponseConfig';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/catch';
+
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+};
 
 @Injectable()
 export class AccountService {
 
+  private url = '/account';
+
   private accountSignedInSubject: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
 
-  constructor(@Inject(REST_FUL_RESPONSE) private restangularFullResponse: Restangular,
+  constructor(
+    private http: HttpClient,
     @Inject('timeOutMilliseconds') private timeOutMilliseconds) {
   }
 
@@ -49,36 +57,39 @@ export class AccountService {
     this.accountSignedInSubject.next(accountSignedIn);
   }
 
-  signIn(username: string, password: string): Observable<any> {
+  signIn(username: string, password: string) {
+
     return this.getSignedInOnce().switchMap(signedIn => {
       if (signedIn) {
         return Observable.of(null);
       }
       
-      return this.restangularFullResponse
-        .all("account")
-        .customPOST(
-          "username=" + username + "&password=" + password,
-          "signIn",
-          {},
-          {'Content-Type': 'application/x-www-form-urlencoded'}
+      return this.http
+        .post<Account>(
+          this.url,
+          {
+            username: username,
+            password: password,
+          },
+          httpOptions
         )
-        .catch(errorResponse => {
-          if(errorResponse.status === 401) {
-            throw new Error("Sign in failed. Username or password don't match.");
-          }
-          else {
+        .catch((errorResponse) => {
+          if (errorResponse.status === 401) {
+            throw new Error(
+              "Sign in failed. Username or password don't match."
+            );
+          } else {
             throw new Error("Sign in failed.");
           }
         })
         .timeout(this.timeOutMilliseconds)
-        .catch(error => {
+        .catch((error) => {
           throw new Error("Signed in failed.");
         })
-        .map(response => {
-          if(response.ok) {
-            this.changeAuthorizationState( new Account(response.data.value.id, response.data.value.username) );
-            return null;
+        .map<any, any>((acc) => {
+          if (acc) {
+            this.changeAuthorizationState(new Account(acc.id, acc.username));
+            return acc;
           }
 
           throw new Error("Sign in failed.");
@@ -87,35 +98,36 @@ export class AccountService {
   }
 
   signUp(username: string, password: string): Observable<any> {
+
     return this.getSignedInOnce().switchMap(signedIn => {
       if (signedIn) {
         return Observable.of(null);
       }
 
-      return this.restangularFullResponse
-        .all("account")
-        .customPOST(
-          "username=" + username + "&password=" + password,
-          "signUp",
-          {},
-          {'Content-Type': 'application/x-www-form-urlencoded'}
+      return this.http
+        .post<Account>(
+          this.url,
+          {
+            username: username,
+            password: password,
+          },
+          httpOptions
         )
-        .catch(errorResponse => {
-          if(errorResponse.status === 401) {
+        .catch((errorResponse) => {
+          if (errorResponse.status === 401) {
             throw new Error("Sign up failed. Username already registered.");
-          }
-          else {
+          } else {
             throw new Error("Sign up failed.");
           }
         })
         .timeout(this.timeOutMilliseconds)
-        .catch(error => {
+        .catch((error) => {
           throw new Error("Sign up failed.");
         })
-        .map(response => {
-          if(response.ok) {
-            this.changeAuthorizationState( new Account(response.data.value.id, response.data.value.username) );
-            return null;
+        .map<any, any>((acc) => {
+          if (acc) {
+            this.changeAuthorizationState(new Account(acc.id, acc.username));
+            return acc;
           }
 
           throw new Error("Sign up failed.");
@@ -130,36 +142,40 @@ export class AccountService {
       }
 
       return new Observable(observer => {
-        this.restangularFullResponse
-          .all("account")
-          .customPOST( {}, "signOut" )
+
+        this.http.post(`${this.url}/signOut`, null, httpOptions)
           .timeout(this.timeOutMilliseconds)
           .subscribe(_ => {
             this.changeAuthorizationState(null);
-          });
+          })
 
         observer.complete();
       })
     });
   }
 
-  retrieveAccountSignedIn(): Observable<any> {
-    return this.restangularFullResponse
-      .all("account")
-      .customGET("retrieveAccountSignedIn")
+  retrieveAccountSignedIn() {
+
+    return this.http.get<Account>(`${this.url}/retrieveAccountSignedIn`, httpOptions)
       .timeout(this.timeOutMilliseconds)
-      .map(response => {
-        if(response.data) {
-          this.changeAuthorizationState(response.data.value);
+      .map(acc => {
+        if(acc) {
+          this.changeAuthorizationState(acc);
         }
-        return null;
+
+        return acc;
       });
   }
 
-  exist(username: String): Observable<boolean> {
-    return this.restangularFullResponse
-      .all("account")
-      .customGET("exist", {username: username})
-      .map(response => response.data.value);
+  exist(username: string): Observable<Account> {
+    return this.http.get<Account>(
+      `${this.url}/exist`,
+      {
+        headers: httpOptions.headers,
+        params: {
+          username: username
+        }
+      }
+    )
   }
 }
