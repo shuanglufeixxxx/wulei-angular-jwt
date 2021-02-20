@@ -7,11 +7,10 @@ import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/catch';
 
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
+import { tokenName } from '../shared/tokenName';
 
-const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" }),
-};
+export var token: string | null = null;
 
 @Injectable()
 export class AccountService {
@@ -71,7 +70,9 @@ export class AccountService {
             username: username,
             password: password,
           },
-          httpOptions
+          {
+            observe: 'response',
+          }
         )
         .catch((errorResponse) => {
           if (errorResponse.status === 401) {
@@ -86,7 +87,9 @@ export class AccountService {
         .catch((error) => {
           throw new Error("Signed in failed.");
         })
-        .map<any, any>((acc) => {
+        .map<any, any>((res) => {
+          token = res.headers[tokenName];
+          const acc = res.body
           if (acc) {
             this.changeAuthorizationState(new Account(acc.id, acc.username));
             return acc;
@@ -111,7 +114,9 @@ export class AccountService {
             username: username,
             password: password,
           },
-          httpOptions
+          {
+            observe: 'response',
+          }
         )
         .catch((errorResponse) => {
           if (errorResponse.status === 401) {
@@ -124,7 +129,9 @@ export class AccountService {
         .catch((error) => {
           throw new Error("Sign up failed.");
         })
-        .map<any, any>((acc) => {
+        .map<any, any>((res) => {
+          token = res.headers[tokenName];
+          const acc = res.body
           if (acc) {
             this.changeAuthorizationState(new Account(acc.id, acc.username));
             return acc;
@@ -143,7 +150,7 @@ export class AccountService {
 
       return new Observable(observer => {
 
-        this.http.post(`${this.url}/signOut`, null, httpOptions)
+        this.http.post(`${this.url}/signOut`, null)
           .timeout(this.timeOutMilliseconds)
           .subscribe(_ => {
             this.changeAuthorizationState(null);
@@ -156,7 +163,7 @@ export class AccountService {
 
   retrieveAccountSignedIn() {
 
-    return this.http.get<Account>(`${this.url}/retrieveAccountSignedIn`, httpOptions)
+    return this.http.get<Account>(`${this.url}/retrieveAccountSignedIn`)
       .timeout(this.timeOutMilliseconds)
       .map(acc => {
         if(acc) {
@@ -171,7 +178,6 @@ export class AccountService {
     return this.http.get<Account>(
       `${this.url}/exist`,
       {
-        headers: httpOptions.headers,
         params: {
           username: username
         }

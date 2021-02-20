@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -19,7 +19,6 @@ import { AdvertisementComponent } from './advertisement/advertisement.component'
 import { PostPreviewComponent } from './post-preview/post-preview.component';
 import { SlideComponent } from './slide/slide.component';
 import { PlaybillGalleryComponent } from './playbill-gallery/playbill-gallery.component';
-import { restangularConfig } from './shared/restangularConfig';
 import { baseUrl } from './shared/baseUrl';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterMobileComponent } from './footer-mobile/footer-mobile.component';
@@ -37,7 +36,6 @@ import { PostLikeService } from './services/post-like.service';
 import { PictureService } from './services/picture.service';
 import { PostService } from './services/post.service';
 import { AccountService } from './services/account.service';
-import { REST_FUL_RESPONSE, restangularFullResponseConfig } from './shared/restangularFullResponseConfig';
 import { timeOutMilliseconds } from './shared/timeOutMilliseconds';
 import { PostShowCanvasComponent } from './post-show-canvas/post-show-canvas.component';
 import { ShowPlusGalleryComponent } from './show-plus-gallery/show-plus-gallery.component';
@@ -46,6 +44,8 @@ import { DimensionService } from './services/dimension.service';
 import { imageURL } from './shared/imageURL';
 import { CookieService } from 'ngx-cookie-service';
 import { InjectorWrapper } from './shared/InjectorWrapper';
+import { TokenInterceptor } from './services/token-interceptor';
+import { JsonContentTypeInterceptor } from './services/json-content-type-interceptor';
 
 @NgModule({
   declarations: [
@@ -102,7 +102,8 @@ import { InjectorWrapper } from './shared/InjectorWrapper';
     { provide: 'baseUrl', useValue: baseUrl },
     { provide: 'imageURL', useValue: imageURL },
     { provide: 'timeOutMilliseconds', useValue: timeOutMilliseconds },
-    { provide: REST_FUL_RESPONSE, useFactory: restangularFullResponseConfig, deps: [Restangular]}
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JsonContentTypeInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
