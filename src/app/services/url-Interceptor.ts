@@ -12,13 +12,13 @@ import { baseUrl } from "../shared/baseUrl";
 const tokenName = 'access-token';
 
 @Injectable()
-export class JsonContentTypeInterceptor implements HttpInterceptor {
+export class UrlInterceptor implements HttpInterceptor {
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    req.clone({ url: `${baseUrl}/${req.url}` });
-    return next.handle(req);
+    const r = req.clone({ url: baseUrl + req.url });
+    return next.handle(r);
   }
 }

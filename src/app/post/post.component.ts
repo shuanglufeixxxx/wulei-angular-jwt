@@ -41,7 +41,7 @@ export class PostComponent implements OnInit, OnDestroy {
     , private pictureService: PictureService
     , private postLikeService: PostLikeService
     , private accountService: AccountService
-    , @Inject('imageURL') private imageURL: string
+    , @Inject('imageUrl') private imageUrl: string
     , private route: ActivatedRoute
     , private router: Router
   ) {
@@ -57,17 +57,17 @@ export class PostComponent implements OnInit, OnDestroy {
       .switchMap(post => {
         this.post = post;
 
-        let likedPostObservable: Observable<boolean> = this.accountService
+        const likedPostObservable = this.accountService
           .getAccountSignedIn()
           .switchMap( _ => {
             return this.postLikeService
               .getLiked(this.post.id)
           })
-          .map(likedPost => this.likedPost = likedPost.exist);
+          .map(likedPost => this.likedPost = Boolean(likedPost.exist));
 
-        let likedPostNumberObservable: Observable<number> = this.postLikeService
+        const likedPostNumberObservable = this.postLikeService
           .getPostLikeCount(this.post.id)
-          .map(count => this.likedPostNumber = count);
+          .map(count => this.likedPostNumber = count.count);
         
         return this.pictureService
           .getList( this.post.pictureCollectionId )

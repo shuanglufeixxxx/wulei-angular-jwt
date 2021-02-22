@@ -38,7 +38,7 @@ export class SignUpComponent implements OnInit {
     private featuredPictureService: FeaturedPictureService,
     private accountService: AccountService,
     private router: Router,
-    @Inject('imageURL') private imageURL: string
+    @Inject('imageUrl') private imageUrl: string
   ) {}
 
   ngOnInit() {

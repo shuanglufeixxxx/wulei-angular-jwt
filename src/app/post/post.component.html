@@ -2,7 +2,7 @@
   <app-slide *ngIf="pictureIds">
     <app-slide-show *ngFor="let pictureId of pictureIds">
       <div class="picture-container">
-        <img src="{{imageURL + pictureId}}">
+        <img src="{{imageUrl + '/' + + pictureId}}">
       </div>
     </app-slide-show>
     <app-slide-show>

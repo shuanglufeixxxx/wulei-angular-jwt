@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AccountService } from './account.service';
 import { Post } from '../shared/Post';
+import 'rxjs/add/operator/filter';
 
 @Injectable()
 export class PostLikeService {
@@ -33,21 +34,18 @@ export class PostLikeService {
       .switchMap(account => {
         return this.http
           .delete(
-            this.url,
-            {
-              params: {
-                postId: postId
-              }
-            }
+            this.url + '/' + postId
           )
       });
   }
 
   getLiked(postId: string): Observable<{exist: 1 | 0}> {
-    return this.accountService
+    const r = this.accountService
       .getSignedInOnce()
-      .filter(signedIn => signedIn)
-      .switchMap(account => {
+    return r
+      .switchMap(signedIn => {
+        if(!signedIn) return Observable.of(false)
+
         return this.http
           .get<any>(
             `${this.url}/exist`,
@@ -60,9 +58,9 @@ export class PostLikeService {
       });
   }
 
-  getPostLikeCount(postId: string): Observable<number> {
+  getPostLikeCount(postId: string): Observable<{count: number}> {
     return this.http
-      .get<number>(
+      .get<{count: number}>(
         `${this.url}/count`,
         {
           params: {

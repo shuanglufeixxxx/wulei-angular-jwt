@@ -22,7 +22,7 @@ export class PostPreviewComponent implements OnInit, OnChanges {
   animationClass = { 'animationDisappear': false, 'animationAppear': false };
 
   constructor(private pictureService: PictureService
-    , @Inject('imageURL') private imageURL: string) { }
+    , @Inject('imageUrl') private imageUrl: string) { }
 
   ngOnInit() {
     this.getPreviewPictures().subscribe(pictures => {

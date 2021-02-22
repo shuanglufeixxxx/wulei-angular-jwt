@@ -22,7 +22,7 @@ export class PlaybillGalleryComponent implements OnInit, AfterViewChecked {
 
   @Output() choosePost: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(@Inject('imageURL') private imageURL: string) { }
+  constructor(@Inject('imageUrl') private imageUrl: string) { }
 
   ngOnInit() {
     var ids: string[] = [];

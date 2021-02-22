@@ -1,5 +1,5 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatMenuModule } from '@angular/material';
@@ -41,11 +41,12 @@ import { PostShowCanvasComponent } from './post-show-canvas/post-show-canvas.com
 import { ShowPlusGalleryComponent } from './show-plus-gallery/show-plus-gallery.component';
 import { PostLikedComponent } from './post-liked/post-liked.component';
 import { DimensionService } from './services/dimension.service';
-import { imageURL } from './shared/imageURL';
+import { imageUrl } from './shared/imageUrl';
 import { CookieService } from 'ngx-cookie-service';
-import { InjectorWrapper } from './shared/InjectorWrapper';
+import { UrlInterceptor } from './services/url-interceptor';
 import { TokenInterceptor } from './services/token-interceptor';
 import { JsonContentTypeInterceptor } from './services/json-content-type-interceptor';
+import { JsKeyParseInterceptor } from './services/js-key-parse-interceptor';
 
 @NgModule({
   declarations: [
@@ -100,15 +101,15 @@ import { JsonContentTypeInterceptor } from './services/json-content-type-interce
     Title,
     CookieService,
     { provide: 'baseUrl', useValue: baseUrl },
-    { provide: 'imageURL', useValue: imageURL },
+    { provide: 'imageUrl', useValue: imageUrl },
     { provide: 'timeOutMilliseconds', useValue: timeOutMilliseconds },
+    { provide: HTTP_INTERCEPTORS, useClass: UrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JsonContentTypeInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JsKeyParseInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private injector: Injector) {
-    InjectorWrapper.injector = injector;
-  }
+  constructor() { }
 }

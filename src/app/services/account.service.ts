@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Account } from '../shared/Account';
+import { Account } from '../shared/account';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/timeout';
@@ -10,7 +10,10 @@ import 'rxjs/add/operator/catch';
 import { HttpClient } from "@angular/common/http";
 import { tokenName } from '../shared/tokenName';
 
-export var token: string | null = null;
+export const token = {
+  token: null as string | null
+}
+
 
 @Injectable()
 export class AccountService {
@@ -65,7 +68,7 @@ export class AccountService {
       
       return this.http
         .post<Account>(
-          this.url,
+          this.url + '/signIn',
           {
             username: username,
             password: password,
@@ -88,7 +91,7 @@ export class AccountService {
           throw new Error("Signed in failed.");
         })
         .map<any, any>((res) => {
-          token = res.headers[tokenName];
+          token.token = res.headers.get(tokenName);
           const acc = res.body
           if (acc) {
             this.changeAuthorizationState(new Account(acc.id, acc.username));
@@ -109,7 +112,7 @@ export class AccountService {
 
       return this.http
         .post<Account>(
-          this.url,
+          this.url + '/signUp',
           {
             username: username,
             password: password,
@@ -119,7 +122,7 @@ export class AccountService {
           }
         )
         .catch((errorResponse) => {
-          if (errorResponse.status === 401) {
+          if (errorResponse.status === 409) {
             throw new Error("Sign up failed. Username already registered.");
           } else {
             throw new Error("Sign up failed.");
@@ -130,7 +133,7 @@ export class AccountService {
           throw new Error("Sign up failed.");
         })
         .map<any, any>((res) => {
-          token = res.headers[tokenName];
+          token.token = res.headers.get(tokenName)
           const acc = res.body
           if (acc) {
             this.changeAuthorizationState(new Account(acc.id, acc.username));

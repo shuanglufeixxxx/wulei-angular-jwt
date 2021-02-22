@@ -57,7 +57,6 @@ export class PostShowCanvasComponent implements OnInit, OnDestroy {
       this.featuredPosts = null;
       return;
     }
-    
     this.topPosts = sourcePost.slice(0, 4);
     this.featuredPosts = sourcePost.slice(4);
   }

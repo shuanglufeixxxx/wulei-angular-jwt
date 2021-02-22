@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Account } from '../shared/Account';
+import { Account } from '../shared/account';
 import { AccountService } from '../services/account.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';

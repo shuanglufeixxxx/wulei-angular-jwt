@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
     private featuredPictureService: FeaturedPictureService,
     private formBuilder: FormBuilder,
     private router: Router,
-    @Inject('imageURL') private imageURL: string
+    @Inject('imageUrl') private imageUrl: string
   ) {}
 
   ngOnInit() {

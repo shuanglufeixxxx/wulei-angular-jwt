@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Account } from '../shared/Account';
+import { Account } from '../shared/account';
 import { AccountService } from '../services/account.service';
 import { Subscription } from 'rxjs/Subscription';
 
