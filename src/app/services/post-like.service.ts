@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AccountService } from './account.service';
-import { Post } from '../shared/Post';
+import { Post } from '../models/post';
 import 'rxjs/add/operator/filter';
 
 @Injectable()

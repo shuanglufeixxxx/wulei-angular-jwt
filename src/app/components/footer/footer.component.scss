@@ -1,0 +1,25 @@
+@import '../../app-theme';
+
+.footer-area {
+  width: 100vw;
+  height: 240px;
+  background-color: $secondary-background-color;
+
+  .text-area {
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    font-size: 10px;
+    color: $primary-color;
+  }
+
+  .nav-area {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+}
+
+i {
+  font-size: 14px;
+  color: $primary-color;
+}

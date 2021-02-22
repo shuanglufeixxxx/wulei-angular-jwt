@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Account } from '../shared/account';
+import { Account } from '../models/account';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/timeout';
@@ -8,7 +8,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/catch';
 
 import { HttpClient } from "@angular/common/http";
-import { tokenName } from '../shared/tokenName';
+import { tokenName } from '../configs/tokenName';
 
 export const token = {
   token: null as string | null

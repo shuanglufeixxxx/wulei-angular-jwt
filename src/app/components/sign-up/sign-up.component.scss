@@ -1,0 +1,137 @@
+@import '../../app-theme';
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  z-index: 4;
+
+  .background-canvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    animation-timing-function: ease-out;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+  }
+
+  .showable {
+    width: 400px;
+    height: 400px;
+    background: $primary-background-color;
+    overflow: hidden;
+    animation-timing-function: ease;
+    animation-duration: 200ms;
+    animation-fill-mode: both;
+
+    .picture-show {
+      width: 400px;
+      height: 200px;
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      div {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 36px;
+        height: 36px;
+        background-color: rgba($color: #ffffff, $alpha: 0.9);
+        outline: none;
+
+        i {
+          display: block;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 40px;
+        }
+      }
+    }
+    .title {
+      padding: 12px;
+      span {
+        font-family: Roboto,"Helvetica Neue", sans-serif;
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 200;
+      }
+    }
+    .steps {
+      width: 1600px;
+      height: 154px;
+      transition-duration: 0.4s;
+      transition-timing-function: ease-in-out;
+      .username-step {
+        @extend .step;
+        form {
+          width: 100%;
+          height: 100%;
+          mat-form-field {
+            width: 376px;
+          }
+          button {
+            margin-top: 44px;
+            width: 376px;
+          }
+        }
+      }
+      .password-step {
+        @extend .step;
+        form {
+          width: 100%;
+          height: 100%;
+          mat-form-field {
+            width: 376px;
+          }
+          button {
+            margin-top: 44px;
+            width: 376px;
+          }
+        }
+      }
+      .password-confirm-step {
+        @extend .step;
+        form {
+          width: 100%;
+          height: 100%;
+          mat-form-field {
+            width: 376px;
+          }
+          button {
+            margin-top: 44px;
+            width: 376px;
+          }
+        }
+      }
+      .tip-step {
+        @extend .step;
+        div {
+          margin-top: 24px;
+          font-family: Roboto,"Helvetica Neue", sans-serif;
+          font-size: 14px;
+          color: $primary-color;
+          text-align: center;
+        }
+        button {
+          margin-top: 52px;
+          width: 376px;
+        }
+      }
+    }
+  }
+}
+
+.step {
+  width: 376px;
+  height: 130px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
