@@ -11,7 +11,9 @@ import debugModule from 'debug';
 import { appName } from '../configs/appName'
 import { tokenName } from "../configs/tokenName";
 import { AccountService } from "../services/account.service";
+import { environment } from "../../environments/environment";
 
+environment.production && debugModule.disable()
 
 const debug = debugModule(appName + ':/src/services/token-interceptor');
 
