@@ -31,7 +31,7 @@ export class DimensionService {
 
   windowDimension(): Observable<any> {
     return new Observable(observer => {
-      let subscription = this.windowDimensionSubject
+      const subscription = this.windowDimensionSubject
         .subscribe(observer);
 
       return () => subscription.unsubscribe();

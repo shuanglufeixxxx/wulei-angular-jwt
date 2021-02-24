@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import {
-  HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
@@ -11,7 +10,7 @@ import debugModule from 'debug';
 
 import { appName } from '../configs/appName'
 import { tokenName } from "../configs/tokenName";
-import { token } from "../services/account.service";
+import { AccountService } from "../services/account.service";
 
 
 const debug = debugModule(appName + ':/src/services/token-interceptor');
@@ -19,19 +18,23 @@ const debug = debugModule(appName + ':/src/services/token-interceptor');
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
+  constructor(private accountService: AccountService) { }
+
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    debug()
-    if( token.token == null ) return next.handle(req);
+  ): Observable<any> {
+    return this.accountService.getToken()
+      .switchMap(tk => {
+        if (tk == null ) return next.handle(req);
 
-    debug(':29 intercept req.headers.get(tokenName)=', req.headers.get(tokenName))
-    return next.handle(
-      req.clone({
-        headers: new HttpHeaders({
-          [tokenName]: token.token
-        })
-      }));
+        debug(':29 intercept req.headers.get(tokenName)=', req.headers.get(tokenName))
+        return next.handle(
+          req.clone({
+            headers: new HttpHeaders({
+              [tokenName]: tk
+            })
+          }));
+      })
   }
 }

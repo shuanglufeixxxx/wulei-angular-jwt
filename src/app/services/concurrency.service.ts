@@ -20,8 +20,8 @@ export class ConcurrencyService {
     }
 
     return mergedObservable.reduce( (accumulator, pair) => {
-      let value = pair[0] as T;
-      let index = pair[1] as number;
+      const value = pair[0] as T;
+      const index = pair[1] as number;
       accumulator[index] = value;
       return accumulator;
     }, new Array<T>(ids.length));

@@ -50,8 +50,8 @@ export class ShowPlusGalleryComponent implements OnInit, OnDestroy {
       .map(params => {
         var currentPost = this.posts[0];
 
-        let id: string = params.get("post");
-        for (let post of this.posts) {
+        const id: string = params.get("post");
+        for (const post of this.posts) {
           if (post.id === id) {
             currentPost = post;
             break;

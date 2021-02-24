@@ -51,7 +51,7 @@ export class PostComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.retrieveContentSubscription = this.route.paramMap
       .switchMap(params => {
-        let id = params.get("id");
+        const id = params.get("id");
         return this.postService.get(id);
       })
       .switchMap(post => {

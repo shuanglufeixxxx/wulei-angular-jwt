@@ -10,10 +10,6 @@ import 'rxjs/add/operator/catch';
 import { HttpClient } from "@angular/common/http";
 import { tokenName } from '../configs/tokenName';
 
-export const token = {
-  token: null as string | null
-}
-
 
 @Injectable()
 export class AccountService {
@@ -22,14 +18,26 @@ export class AccountService {
 
   private accountSignedInSubject: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
 
+  private tokenSubject = new BehaviorSubject<string | null>(null);
+
   constructor(
     private http: HttpClient,
     @Inject('timeOutMilliseconds') private timeOutMilliseconds) {
   }
 
+  getToken() {
+      return new Observable<string | null>(observer => {
+          const subscription = this.tokenSubject.subscribe(tk => {
+              observer.next(tk)
+          })
+
+          return () => subscription.unsubscribe()
+      })
+  }
+
   getAccountSignedIn(): Observable<Account> {
     return new Observable<Account>(observer => {
-      let subscription: Subscription = this.accountSignedInSubject.subscribe(account => {
+      const subscription: Subscription = this.accountSignedInSubject.subscribe(account => {
         observer.next(account);
       })
 
@@ -39,7 +47,7 @@ export class AccountService {
 
   getSignedIn(): Observable<boolean> {
     return new Observable<boolean>(observer => {
-      let subscription: Subscription = this.accountSignedInSubject.subscribe(account => {
+      const subscription: Subscription = this.accountSignedInSubject.subscribe(account => {
         observer.next(account !== null);
       })
 
@@ -91,7 +99,7 @@ export class AccountService {
           throw new Error("Signed in failed.");
         })
         .map<any, any>((res) => {
-          token.token = res.headers.get(tokenName);
+          this.tokenSubject.next( res.headers.get(tokenName) );
           const acc = res.body
           if (acc) {
             this.changeAuthorizationState(new Account(acc.id, acc.username));
@@ -133,7 +141,7 @@ export class AccountService {
           throw new Error("Sign up failed.");
         })
         .map<any, any>((res) => {
-          token.token = res.headers.get(tokenName)
+          this.tokenSubject.next( res.headers.get(tokenName) )
           const acc = res.body
           if (acc) {
             this.changeAuthorizationState(new Account(acc.id, acc.username));

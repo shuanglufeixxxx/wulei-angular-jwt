@@ -62,7 +62,7 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     if(this.signInGroup.valid) {
-      let signInInfo = this.deepCopySignInInfo();
+      const signInInfo = this.deepCopySignInInfo();
       this.accountService
         .signIn(signInInfo.username, signInInfo.password)
         .subscribe( ()=> {
