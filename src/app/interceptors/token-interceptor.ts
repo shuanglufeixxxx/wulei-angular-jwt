@@ -26,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<any> {
-    return this.accountService.getToken()
+    return this.accountService.getTokenOnce()
       .switchMap(tk => {
         if (tk == null ) return next.handle(req);
 

@@ -35,6 +35,10 @@ export class AccountService {
       })
   }
 
+  getTokenOnce() {
+    return this.getToken().take(1)
+  }
+
   getAccountSignedIn(): Observable<Account> {
     return new Observable<Account>(observer => {
       const subscription: Subscription = this.accountSignedInSubject.subscribe(account => {
