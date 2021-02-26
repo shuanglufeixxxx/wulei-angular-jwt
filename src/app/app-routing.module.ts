@@ -4,7 +4,7 @@ import { ActivityComponent } from './components/activity/activity.component';
 import { MovieComponent } from './components/movie/movie.component';
 import { TvSeriesComponent } from './components/tv-series/tv-series.component';
 import { FashionComponent } from './components/fashion/fashion.component';
-import { AdvertisementComponent } from './components/advertisement/advertisement.component';
+import { EndorsementComponent } from './components/endorsement/endorsement.component';
 import { DailyLifeComponent } from './components/daily-life/daily-life.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'movie', component: MovieComponent },
   { path: 'tv-series', component: TvSeriesComponent },
   { path: 'fashion', component: FashionComponent },
-  { path: 'advertisement', component: AdvertisementComponent },
+  { path: 'endorsement', component: EndorsementComponent },
   { path: 'daily-life', component: DailyLifeComponent },
   { path: '', redirectTo: 'activity', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent, outlet: 'action'},

@@ -15,7 +15,7 @@ import { ActivityComponent } from './components/activity/activity.component';
 import { TvSeriesComponent } from './components/tv-series/tv-series.component';
 import { MovieComponent } from './components/movie/movie.component';
 import { DailyLifeComponent } from './components/daily-life/daily-life.component';
-import { AdvertisementComponent } from './components/advertisement/advertisement.component';
+import { EndorsementComponent } from './components/endorsement/endorsement.component';
 import { PostPreviewComponent } from './components/post-preview/post-preview.component';
 import { SlideComponent } from './components/slide/slide.component';
 import { PlaybillGalleryComponent } from './components/playbill-gallery/playbill-gallery.component';
@@ -59,7 +59,7 @@ import { JsKeyParseInterceptor } from './interceptors/js-key-parse-interceptor';
     TvSeriesComponent,
     MovieComponent,
     DailyLifeComponent,
-    AdvertisementComponent,
+    EndorsementComponent,
     PostPreviewComponent,
     SlideComponent,
     PlaybillGalleryComponent,
