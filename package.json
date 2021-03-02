@@ -5,8 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "watch": "ng build --watch true --output-path ../wulei-express/public",
-    "build": "ng build --prod --output-path ../wulei-express/public",
+    "watch": "ng build --watch true",
+    "buildDev": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
