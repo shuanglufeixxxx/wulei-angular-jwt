@@ -3,6 +3,8 @@ import { Account } from '../../models/account';
 import { AccountService } from '../../services/account.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import { goTo } from '../../../contexts/goTo';
+import { hireMeUrl } from '../../configs/hireMeUrl';
 
 @Component({
   selector: 'app-header',
@@ -50,5 +52,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigateToPostLiked() {
     this.router.navigate( ['my', 'post-liked'] );
+  }
+
+  goToHireMe() {
+    goTo(hireMeUrl);
   }
 }

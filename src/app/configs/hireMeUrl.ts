@@ -1,0 +1,1 @@
+export const hireMeUrl = "/borischen_profile"
